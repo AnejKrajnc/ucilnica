@@ -1,0 +1,33 @@
+.nakupi-tecaj {
+    position: fixed;
+    bottom: 6px;
+    right: 6px;
+    width: 45px;
+    height: 45px;
+    background-color: #f41256;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+}
+.nakupi-tecaj i.kosarica {
+    margin-top: 50%;
+    margin-left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    padding: 2.5px;
+    content: url('../kosarica.svg');
+}
+a.course-module-item {
+    color: #000;
+    cursor: pointer;
+}
+a.course-module-item:hover {
+    text-decoration: none;
+    color: #f41256;
+    transition: 0.33s;
+}
+.div-textarea {
+    border: 0.3px solid grey;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: #fff;;
+}
