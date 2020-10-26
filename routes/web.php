@@ -24,6 +24,7 @@ Route::post('/moj-profil', 'HomeController@changemyprofile');
 /* Routes for Tečaji */
 Route::group(['middleware' => ['auth', 'student']], function () {
     Route::get('/tecaji/{tecaj}', 'HomeController@tecaji');
+    Route::get('/tecaji/{tecaj}/{datoteka}', 'HomeController@prenesi');
 });
 
 Route::get('/tecaji', 'HomeController@index');

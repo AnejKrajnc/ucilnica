@@ -55,13 +55,8 @@ class CourseModuleContentsController extends Controller
         
         return redirect('/dashboard/courses/'.$request->id.'/modules/'.$request->idmod)->with('alert-content', 'Vsebina Modula: '.$modulecontent->title.' je izbrisana!');
     }
-    public function resolveVideo($url) {
-        
-    }
-    public function resolveAudio($url) {
-
-    }
-    public function resolveEbook() {
-
+    public function returnContent(Request $request) {
+        $content = json_decode($request->getContent(), true);
+        return ModuleContent::find($content['contentid'])->content;
     }
 }
