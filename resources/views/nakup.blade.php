@@ -121,22 +121,15 @@
 @endif
 @endisset
 @isset($step)
-@if($step == 'paypal')
-<div class="paypal">
-<paypal-checkout></paypal-checkout>
-</div>
-@endif
-@endisset
-@isset($step)
 @if($step == 3)
-@isset($data && $payment)
+@if(isset($data) && isset($payment))
     @if($payment == 'paypal')
     <h4>4. Zaključen nakup</h4>
     <p>Uspešno ste opravili vaš nakup!</p>
     <p><b>V nekaj minutah lahko v vašem e-poštnem nabiralniku pričakujete sporočilo s podatki za prijavo.</b></p>
     <i>Sporočilo se lahko tudi nahaja v nezaželeni pošti (junk/scam)</i>
     @endif
-@endisset
+@endif
 @endif
 @endisset
 @isset($napaka)

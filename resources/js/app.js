@@ -38,7 +38,7 @@ const app = new Vue({
 
 //Paypal Express Checkout  
 
-paypal.Button.render({
+/* paypal.Button.render({
     // Configure environment
     env: 'sandbox',
     client: {
@@ -57,7 +57,7 @@ paypal.Button.render({
         return actions.payment.create({
             transactions: [{
                 amount: {
-                    total: '17.90',
+                    total: document.querySelector('#price').value,
                     currency: 'EUR'
                 }
             }]
@@ -74,7 +74,7 @@ paypal.Button.render({
             window.location = "/nakup/"+process_token+"?paymentID="+data.paymentID+"&token="+data.paymentToken+"&payerID="+data.payerID+"&pid=<?php echo $productData['id']; ?>";
         });
     }
-}, '#paypal-button');
+}, '#paypal-button'); */
 
     // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');

@@ -78090,7 +78090,7 @@ paypal_checkout__WEBPACK_IMPORTED_MODULE_2___default.a.Button.render({
     return actions.payment.create({
       transactions: [{
         amount: {
-          total: '17.90',
+          total: document.querySelector('#price').value,
           currency: 'EUR'
         }
       }]

@@ -8,25 +8,32 @@ use Illuminate\Support\Facades\Http;
 
 class Paypal extends Controller
 {
-    public $paypalEnv = 'sandbox';
-    public $paypalURL = 'https://api.sandbox.paypal.com/v1/'; //Production: https://api.paypal.com/v1/
-    public $paypalClientID = '';
-    private $paypalSecret = '';
-
-    public function validate($paymentID, $paymentToken, $payerID, $productID) {
-        $response = Http::withBasicAuth($this->paypalClientID, $this->paypalSecret)->post($this->paypalURL.'oauth2/token', ['grant_type' => 'client_credentials']);
-        if (empty($response)) {
-            return false;
-        }
-        else {
-            $jsonData = json_decode($response);
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $jsonData->access_token,
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/xml'
-            ])->get($this->paypalURL.'/payments/payment/'.$paymentID);
-
-            return json_decode($response);
-        }
+    public $sandbox;
+    public $endpointURL;
+    public $clientID;
+    public $secret;
+    public $currencycode;
+    function _construct()
+    {
+        $this->sandbox = config('paypal.sandbox'); // PAYPAL_SANDBOX = true/false
+        $this->endpointURL = $this->sandbox ? 'https://api.sandbox.paypal.com' : 'https://api.paypal.com'; //Set endpoint URL for PayPal API Calls 
+        $this->clientID = config('paypal.clientid'); // PAYPAL_CLIENTID
+        $this->secret = config('paypal.clientsecret'); //PAYPAL_CLIENTSECRET
+        $this->currencycode = "EUR";
+    }
+    /**
+     * Capture Order for PayPal and get all response data
+     */
+    public function Capture($amount)
+    {
+        $data['intent'] = "CAPTURE";
+        $data['purchase_units']['amount']['currency_code'] = $this->currencycode;
+        $data['purchase_units']['amount']['value'] = $amount;
+        $data = json_encode($data);
+        $response = Http::withBasicAuth($this->clientID, $this->secret)
+                        ->withBody($data, 'application/json')
+                        ->post($this->endpointURL);
+        if ($response['status'] == "CREATED")
+            return redirect($response['links'][1]['href']);
     }
 }

@@ -8,7 +8,7 @@
                 <div class="card-header" style="background-color:#f41256;color:#fff;font-family:'Shadows Into Light';font-size:21px;">{{ __('Prijava v spletno učilnico') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ secure_url('login') }}">
                         @csrf
 
                         <div class="form-group row">

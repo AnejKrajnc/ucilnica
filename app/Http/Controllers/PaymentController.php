@@ -61,7 +61,8 @@ class PaymentController extends Controller
                 $orderprocess->save();
 
                 if ($orderprocess->payment == 'paypal') {
-                    return view('nakup', ['step' => 'paypal']);
+                    $paypal = new Paypal;
+                    $paypal->Capture(1.33);
                 }
             }
         }
@@ -79,13 +80,9 @@ class PaymentController extends Controller
     function orderProcessValidate(Request $request) {
         $input = $request->all();
 
-        $paypal = new Paypal;
-
         $orderProcess = OrderProcess::where('process_token', $request->token)->first();
 
-        $paymentCheck = $paypal->validate($input['paymentID'], $input['token'], $input['payerID'], $input['pid']);
-
-        if ($paymentCheck && $paymentCheck->state == 'approved') {
+        //Vstavi za preverjanje placila
             $customer = Customer::firstOrCreate([
                 'first_name' => $orderProcess->first_name,
                 'last_name' => $orderProcess->last_name,
@@ -133,7 +130,6 @@ class PaymentController extends Controller
             Mail::to($customer->email)->send(new User($newUser, $password)); //Ob potrditvi paypal-a pošlji email novemu uporabniku
 
             return view('nakup', ['step' => 3, 'data' => $paymentCheck, 'payment' => 'paypal']); //Ob potrjenem plačilu 
-        }
         else {
             return view('nakup', ['napaka' => true]);
         }
