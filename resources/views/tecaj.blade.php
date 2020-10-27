@@ -6,7 +6,7 @@
         <div class="col-sm-6 col-md-4">
         <h5 style="text-transform: uppercase;"><b>{{ $course->title }}</b></h5>
             <span style="position:absolute; width:32px; height: 3px; background-color:#f41256;"></span>
-            <img src="{{ asset('/images/'.$course->description_thumbnail) }}" alt="" height="400">
+            <img src="{{ secure_asset('/images/'.$course->description_thumbnail) }}" alt="" height="400">
         </div>
         <div class="col-sm-6">
             <br>
@@ -37,7 +37,7 @@
       <div class="card-body">
         <div class="row">
             <div class="col-sm-3 col-md-5">
-            <img src="{{ asset('/images/'.$module->thumbnail) }}" alt="{{ $module->title }}">
+            <img src="{{ secure_asset('/images/'.$module->thumbnail) }}" alt="{{ $module->title }}">
             </div>
             <div class="col-sm-7 col-md-7">
                 <div class="panel panel-danger" style="border:1.1px solid #f41256;border-radius:5px;height:100%;">

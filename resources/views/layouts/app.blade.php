@@ -10,7 +10,7 @@
     <title>{{ ('Nika Soršak - Spletna učilnica') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ secure_asset('js/app.js') }}" defer></script>
     <script type="text/javascript" id="www-widgetapi-script" src="https://s.ytimg.com/yts/jsbin/www-widgetapi-vflS50iB-/www-widgetapi.js" async=""></script>
     <script src="https://www.youtube.com/player_api"></script>
     <script src="https://w.soundcloud.com/player/api.js"></script>
@@ -19,9 +19,9 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Shadows+Into+Light" />
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('css/adds.css') }}">
+    <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ secure_asset('/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ secure_asset('css/adds.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
