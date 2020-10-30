@@ -8,17 +8,17 @@ use Illuminate\Support\Facades\Http;
 
 class Paypal extends Controller
 {
-    public $sandbox;
-    public $endpointURL;
-    public $clientID;
-    public $secret;
-    public $currencycode;
+    protected $sandbox;
+    protected $endpointURL;
+    protected $clientID;
+    protected $secret;
+    protected $currencycode;
     function _construct()
     {
-        $this->sandbox = config('paypal.sandbox'); // PAYPAL_SANDBOX = true/false
+        $this->sandbox = true; // PAYPAL_SANDBOX = true/false
         $this->endpointURL = $this->sandbox ? 'https://api.sandbox.paypal.com' : 'https://api.paypal.com'; //Set endpoint URL for PayPal API Calls 
-        $this->clientID = config('paypal.clientid'); // PAYPAL_CLIENTID
-        $this->secret = config('paypal.clientsecret'); //PAYPAL_CLIENTSECRET
+        $this->clientID = 'AYC4xTxGRw3ZJr2Do41D9FI-i2nEkoew2vwggla9Y9FhCKYc7X7aesqEtLoFMoUkcjUpLptYeBqA6iRC'; // PAYPAL_CLIENTID
+        $this->secret = 'EKj3WZ-qvQkjmGsyFCOdaQE4LiU4Af837EkUvBvLhUsweKnGN0fKhp4Nno_LoFCTDx7sRA-cAd6tJw8O'; //PAYPAL_CLIENTSECRET
         $this->currencycode = "EUR";
     }
     /**
@@ -32,8 +32,9 @@ class Paypal extends Controller
         $data = json_encode($data);
         $response = Http::withBasicAuth($this->clientID, $this->secret)
                         ->withBody($data, 'application/json')
-                        ->post($this->endpointURL);
+                        ->post($this->endpointURL.'/v2/checkout/orders');
         if ($response['status'] == "CREATED")
             return redirect($response['links'][1]['href']);
+            
     }
 }

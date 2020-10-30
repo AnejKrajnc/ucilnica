@@ -1,6 +1,6 @@
 <template>
 <div class="show-module-content" style="display: none;">
-                <div id="player"></div>
+                <div class="player" data-player-id=""></div>
             </div>
 </template>
 <script>

@@ -44,7 +44,7 @@
                     <div class="panel-body">
                         <ul style="padding-left: 5px;">
                             @foreach(DB::table('modulecontent')->where('module_id', $module->id)->get() as $modulecontent)
-                        <a class="course-module-item" data-content-type="{{ $modulecontent->type }}" data-content-id="{{ $modulecontent->id }}" data-state="@if($loop->index == 0) {{ 'true' }} @else {{ 'false' }} @endif" style="text-transform: uppercase;"><i class="fa {{ $ikone[$modulecontent->type] }}" style="color:#f41256; font-size:24px; padding-right:5px;"></i> {{ $modulecontent->title }}</a> <br>
+                        <a class="course-module-item" data-content-type="{{ $modulecontent->type }}" data-content-id="{{ $modulecontent->id }}" data-state="@if($loop->index == 0) {{ 'true' }} @else {{ 'false' }} @endif" style="text-transform: uppercase;"><i class="fa {{ $ikone[$modulecontent->type] ?? '' }}" style="color:#f41256; font-size:24px; padding-right:5px;"></i> {{ $modulecontent->title }}</a> <br>
                             @endforeach
                         </ul>
                     </div>

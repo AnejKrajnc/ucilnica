@@ -130,8 +130,5 @@ class PaymentController extends Controller
             Mail::to($customer->email)->send(new User($newUser, $password)); //Ob potrditvi paypal-a pošlji email novemu uporabniku
 
             return view('nakup', ['step' => 3, 'data' => $paymentCheck, 'payment' => 'paypal']); //Ob potrjenem plačilu 
-        else {
-            return view('nakup', ['napaka' => true]);
-        }
     }
 }

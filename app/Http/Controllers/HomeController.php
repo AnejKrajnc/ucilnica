@@ -59,16 +59,4 @@ class HomeController extends Controller
             if(!($data['newpasswd'] == $data['verifynewpasswd'])) return redirect()->back()->with('message', 'Novo geslo se ne ujema!');
         }
     }
-    public function prenesi(Request $request)
-    {
-        if (Auth::check()) {
-            if (Auth::user()->courses()->get()->link == $request->tecaj) {
-               $modulecontent = ModuleContent::where('title', $request->datoteka)->first();
-               $pathToFile = $modulecontent->content;
-               return response()->download($pathToFile);
-            }
-        }
-        else
-            exit;
-    }
 }
