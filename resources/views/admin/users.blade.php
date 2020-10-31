@@ -32,7 +32,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                <form action="/dashboard/users" method="POST">
+                <form action="/dashboard/users/add" method="GET">
                     @csrf
                     <button class="btn btn-primary" type="submit">Dodaj uporabnika</button>
                     <i>Uporabnika, ki je na novo nakupil tečaj lahko dodate tudi v zavihku <a href="/dashboard/orders"><b>Računi</b></a></i>

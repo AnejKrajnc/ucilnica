@@ -53,9 +53,9 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
-                            <li class="nav-item">
+                           <!-- <li class="nav-item">
                                 <a class="nav-link" href="/nakup" style="color:#f41256;">Nakup</a>
-                            </li>
+                            </li> -->
                         @else
                             <li class="nav-item">
                             <a class="nav-link" href="/"><i class="fa fa-home"></i></a>

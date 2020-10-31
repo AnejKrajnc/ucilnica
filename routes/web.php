@@ -75,7 +75,8 @@ Route::group(['middleware' => ['auth','admin']], function () {
      */
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/users', 'UsersController@showUsers');
-        Route::post('/users', 'UsersController@addUser');
+        Route::get('/users/add', 'UsersController@NewUser');
+        Route::post('/users/add', 'UsersController@addUser');
         Route::get('/users/{id}', 'UsersController@showUser');
         Route::post('/users/{id}', 'UsersController@updateUser');
         Route::delete('/users/{id}', 'UsersController@deleteUser');
