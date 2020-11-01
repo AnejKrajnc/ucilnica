@@ -14,7 +14,7 @@
             <h5>{{ Auth::user()->name }}</h5>
             <br>
             <h3><b>SPREMEMBA GESLA</b></h3>
-        <form action="{{ route('moj-profil') }}" method="POST">
+        <form action="{{ secure_url('moj-profil') }}" method="POST">
                 @csrf
                 <div class="form-row">
                     <div class="form-group col-md-8">
@@ -71,7 +71,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                <a href="/nakup"><button class="btn btn-primary">Kupi nov tečaj</button></a>
+                <!--<a href="/nakup"><button class="btn btn-primary">Kupi nov tečaj</button></a> -->
             </div>
         </div>
     </div>
