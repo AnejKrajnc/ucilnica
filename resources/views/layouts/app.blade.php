@@ -46,7 +46,7 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}" style="color:#f41256;">{{ __('Prijava') }}</a>
+                                <a class="nav-link" href="{{ secure_url('login') }}" style="color:#f41256;">{{ __('Prijava') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
@@ -61,20 +61,20 @@
                             <a class="nav-link" href="/"><i class="fa fa-home"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('moj-profil') }}" style="color:#f41256;">Moj profil</a>
+                                <a class="nav-link" href="{{ secure_url('moj-profil') }}" style="color:#f41256;">Moj profil</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{ secure_url('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Odjava') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ secure_url('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
