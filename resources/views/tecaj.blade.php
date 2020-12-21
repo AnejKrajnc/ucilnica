@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-sm-6 col-md-4">
         <h5 style="text-transform: uppercase;"><b>{{ $course->title }}</b></h5>
-            <span style="position:absolute; width:32px; height: 3px; background-color:#f41256;"></span>
+            <span style="position:absolute; width:32px; height: 3px; background-color:rgb(93, 206, 45);"></span>
             <img src="{{ secure_asset('/images/'.$course->description_thumbnail) }}" alt="" height="400">
         </div>
         <div class="col-sm-6">
@@ -40,11 +40,11 @@
             <img src="{{ secure_asset('/images/'.$module->thumbnail) }}" alt="{{ $module->title }}">
             </div>
             <div class="col-sm-7 col-md-7">
-                <div class="panel panel-danger" style="border:1.1px solid #f41256;border-radius:5px;height:100%;">
+                <div class="panel panel-danger" style="border:1.1px solid rgb(93, 206, 45);border-radius:5px;height:100%;">
                     <div class="panel-body">
                         <ul style="padding-left: 5px;">
                             @foreach(DB::table('modulecontent')->where('module_id', $module->id)->get() as $modulecontent)
-                        <a class="course-module-item" data-content-type="{{ $modulecontent->type }}" data-content-id="{{ $modulecontent->id }}" style="text-transform: uppercase;"><i class="fa {{ $ikone[$modulecontent->type] ?? '' }}" style="color:#f41256; font-size:24px; padding-right:5px;"></i> {{ $modulecontent->title }}</a> <br>
+                        <a class="course-module-item" data-content-type="{{ $modulecontent->type }}" data-content-id="{{ $modulecontent->id }}" style="text-transform: uppercase;"><i class="fa {{ $ikone[$modulecontent->type] ?? '' }}" style="color:rgb(93, 206, 45); font-size:24px; padding-right:5px;"></i> {{ $modulecontent->title }}</a> <br>
                             @endforeach
                         </ul>
                     </div>

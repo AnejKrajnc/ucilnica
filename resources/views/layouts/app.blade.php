@@ -29,7 +29,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{URL('/images/ucilnica-logo.png')}}" alt="logotip" height="75">
+                    <img src="{{URL('/images/tz-logo.png')}}" alt="logotip" height="50">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -46,7 +46,7 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ secure_url('login') }}" style="color:#f41256;">{{ __('Prijava') }}</a>
+                                <a class="nav-link" href="{{ secure_url('login') }}" style="color:rgb(93, 206, 45);">{{ __('Prijava') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
@@ -61,7 +61,7 @@
                             <a class="nav-link" href="/"><i class="fa fa-home"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ secure_url('moj-profil') }}" style="color:#f41256;">Moj profil</a>
+                                <a class="nav-link" href="{{ secure_url('moj-profil') }}" style="color:rgb(93, 206, 45);">Moj profil</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

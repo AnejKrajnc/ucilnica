@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-7">
             <div class="card" style="background-color:rgba(254,254,254, 0.75);">
-                <div class="card-header" style="background-color:#f41256;color:#fff;font-family:'Shadows Into Light';font-size:21px;">{{ __('Prijava v spletno učilnico') }}</div>
+                <div class="card-header" style="background-color:#5dce2d;color:#fff;font-family:'Shadows Into Light';font-size:21px;">{{ __('Prijava v spletno učilnico') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ secure_url('login') }}">
