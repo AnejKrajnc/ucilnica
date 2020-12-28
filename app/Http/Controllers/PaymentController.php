@@ -26,7 +26,7 @@ class PaymentController extends Controller
             'ime' => 'required|max:255',
             'priimek' => 'required|max:255',
             'telefon' => 'required|max:25',
-            'email' => 'required|email|unique:order_process',
+            'email' => 'required|email',
             'naslov' => 'required|max:255',
             'kraj' => 'required|max:255',
             'postal' => 'required|integer',

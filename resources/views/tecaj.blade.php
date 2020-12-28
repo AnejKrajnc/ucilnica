@@ -39,7 +39,7 @@
             <div class="col-sm-3 col-md-5">
             <img src="{{ secure_asset('/images/'.$module->thumbnail) }}" alt="{{ $module->title }}">
             </div>
-            <div class="col-sm-7 col-md-7">
+            <div class="col-sm-10 col-md-7 mt-2">
                 <div class="panel panel-danger" style="border:1.1px solid rgb(93, 206, 45);border-radius:5px;height:100%;">
                     <div class="panel-body">
                         <ul style="padding-left: 5px;">
