@@ -80,6 +80,8 @@ Route::group(['middleware' => ['auth','admin']], function () {
         Route::get('/users/{id}', 'UsersController@showUser');
         Route::post('/users/{id}', 'UsersController@updateUser');
         Route::delete('/users/{id}', 'UsersController@deleteUser');
+        Route::get('/users/{id}/add-course', 'UsersController@addCourse');
+        Route::post('/users/{id}/add-course', 'UsersController@addCourse');
 
         Route::get('/cupons', 'CuponeController@showCupones');
         Route::post('/cupons', 'CuponeController@addCupone');

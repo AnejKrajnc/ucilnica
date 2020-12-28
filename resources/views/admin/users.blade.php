@@ -18,6 +18,7 @@
                             <th scope="col">E-naslov</th>
                             <th scope="col">Ustvarjeno</th>
                             <th scope="col">Posodobljeno</th>
+                            <th scope="col">Dodaj spletni tečaj</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,6 +29,7 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->created_at }}</td>
                         <td>{{ $user->updated_at }}</td>
+                        <td><a href="/dashboard/users/{{ $user->id }}/add-course">+</a></td>
                         </tr>
                         @endforeach
                     </tbody>

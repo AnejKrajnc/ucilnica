@@ -51,4 +51,20 @@ class UsersController extends Controller
     public function deleteUser() {
 
     }
+    public function addCourse(Request $request) {
+        if ($request->isMethod('get')) {
+            
+        }
+        else if($request->isMethod('post')) {
+            $input = $request->all();
+            foreach ($input['tecaji'] as $tecaj) {
+                CourseEnrolled::create([
+                    'user_id' => $request->id,
+                    'course_id' => $tecaj,
+                    'enrolled_in' => NOW(),
+                    'progress' => 0.00
+                ]);
+            }
+        }
+    }
 }
