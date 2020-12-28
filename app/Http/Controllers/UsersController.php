@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\Course;
+use App\CourseEnrolled;
 
 class UsersController extends Controller
 {
@@ -12,21 +16,31 @@ class UsersController extends Controller
         return view('admin.users')->withUsers($users);
     }
     public function addUser(Request $request) {
-        $password = Str::random(8);
         $input = $request->all();
+        $password = str_replace(' ', '', strtolower($input['ime']));
+        $password .= rand(1, 999);
         $newUser = User::create([
             'name' => $input['ime'],
             'email' => $input['uporabnisko'],
             'avatar' => 'users/default-png',
             'usertype' => 'student',
-            'password' => Hash::make(),
-            'created_at' => NOW($password),
+            'password' => Hash::make($password),
+            'created_at' => NOW(),
             'updated_at' => NOW()
         ]);
-        return 'uporabnisko ime: '.$input['uporabnisko'].' geslo: '.$password.' ['.$input['ime'].']';
+        foreach ($input['tecaji'] as $tecaj) {
+            CourseEnrolled::create([
+                'user_id' => $newUser->id,
+                'course_id' => $tecaj,
+                'enrolled_in' => NOW(),
+                'progress' => 0.00
+            ]);
+        }
+        return view('admin.added-user')->withUsername($input['uporabnisko'])->withPassword($password)->withName($input['ime']);
     }
     public function NewUser() {
-        return view('admin.newuser');
+        $tecaji = Course::all();
+        return view('admin.newuser')->withTecaji($tecaji);
     }
     public function showUser() {
 
