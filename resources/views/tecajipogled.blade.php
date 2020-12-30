@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="jumbotron text-center">
+    <!-- <section class="jumbotron text-center">
       <div class="container">
         <h1>Album example</h1>
         <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
@@ -10,7 +10,7 @@
           <a href="#" class="btn btn-secondary my-2">Secondary action</a>
         </p>
       </div>
-    </section>
+    </section> -->
   
     <div class="album py-5 bg-light">
       <div class="container">
@@ -33,6 +33,18 @@
                   <div class="progress-bar" role="progressbar" style="width: {{ $course->progress ?? '' }}; background-color: #fff;" aria-valuenow="{{ $course->progress ?? '' }}" aria-valuemin="0" aria-valuemax="100"><small style="color: rgb(93, 206, 45);">{{ $course->progress }}%</small></div>
                   </div>
                 </div>
+              </div></a>
+            </div>
+          </div>
+          @endforeach
+          @elseif(isset($categories))
+          @foreach ($categories as $category)
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <a href="/{{ $category->slug }}"><img class="bd-placeholder-img card-img-top" src="{{ secure_asset('/images/'. $category->thumbnail ?? '') }}"></a>
+              <a href="/{{ $category->slug }}" style="text-decoration: none !important;"><div class="card-body" style="background-color: rgb(93, 206, 45);">
+              <h5 class="card-heading" style="color: #fff; text-transform: uppercase; font-size:1rem; font-weight: bold;">{{ $category->name }}</h5>
+              <p class="card-text" style="color: #fff;">{{ ' ' }}</p> 
               </div></a>
             </div>
           </div>

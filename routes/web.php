@@ -24,10 +24,14 @@ Route::post('/moj-profil', 'HomeController@changemyprofile');
 /* Routes for Tečaji */
 Route::group(['middleware' => ['auth', 'student']], function () {
     Route::get('/tecaji/{tecaj}', 'HomeController@tecaji');
+    Route::get('/spletni-tecaji/{tecaj}', 'HomeController@tecaji');
+    Route::get('/celostni-program-samopomoci/{program}', 'HomeController@celostniprogram');
+    Route::get('/sotini-akademija/{program}', 'HomeController@sotiniakademija');
     Route::get('/tecaji/{tecaj}/{datoteka}', 'FileStorageController@prenesi');
 });
 
-Route::get('/tecaji', 'HomeController@index');
+Route::get('/spletni-tecaji', 'HomeController@indextecaji');
+Route::get('/celostni-program-samopomoci', 'HomeController@celostniprogrami');
 
 /* Routes for Payments (Nakupi spletnih tečajev) */
 Route::get('/nakup', 'PaymentController@index');

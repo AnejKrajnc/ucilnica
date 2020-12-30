@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Course extends Model
+class Category extends Model
 {
     /**
      * The table associated with the model. 
      * 
      * @var string
      */
-    protected $table = 'course';
+    protected $table = 'categories';
     /**
      * The primary key associated with the table
      * 
@@ -24,13 +24,14 @@ class Course extends Model
      * @var bool
      */
     public $incrementing = true;
+    public $timestamps = true;
     /**
      * Columns of table.
      * 
      */
-    protected $fillable = ['category_id', 'title', 'description', 'thumbnail', 'description_thumbnail', 'link', 'color'];
+    protected $fillable = ['name', 'thumbnail', 'slug'];
 
-    public function modules() {
-        return $this->hasMany('App\Modules');
+    public function tecaji() {
+        return $this->hasMany('App\Course');
     }
 }
