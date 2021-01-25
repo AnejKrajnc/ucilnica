@@ -25,12 +25,12 @@
               <h5 class="card-heading" style="color: #fff; text-transform: uppercase; font-size:1rem; font-weight: bold;">{{ $course->title }}</h5>
               <p class="card-text" style="color: #fff;">{{ ' ' }}</p>
                 <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                   <button type="button" class="btn btn-sm btn-outline-secondary" style="background-color: #fff; border: none; color: rgb(93, 206, 45);">spletni tečaj</button>
-                  </div>
-                  <small style="color: #fff;">Tvoj napredek: </small>
-                  <div class="progress" style="width: 125px; background-color: rgba(238, 238, 238, 0.88);">
-                  <div class="progress-bar" role="progressbar" style="width: {{ $course->progress ?? '' }}; background-color: #fff;" aria-valuenow="{{ $course->progress ?? '' }}" aria-valuemin="0" aria-valuemax="100"><small style="color: rgb(93, 206, 45);">{{ $course->progress }}%</small></div>
+                  <di.v class="btn-group">
+                   @if ($course->category_id == 1)
+                   <button type="button" class="btn btn-sm btn-outline-secondary" style="background-color: #fff; border: none; color: rgb(93, 206, 45);">spletni tečaj</button> 
+                   @else
+                   <button type="button" class="btn btn-sm btn-outline-secondary" style="background-color: #fff; border: none; color: rgb(93, 206, 45);">celostni program samopomoči</button>
+                   @endif
                   </div>
                 </div>
               </div></a>
