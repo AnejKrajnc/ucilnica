@@ -33,7 +33,7 @@ class LoginController extends Controller
             return redirect('/dashboard');
         }
         else {
-            return redirect(url()->previous()); 
+            return redirect($this->redirectTo); 
         }
     }
 
@@ -45,5 +45,6 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->redirectTo = url()->previous();
     }
 }
