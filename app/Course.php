@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Course extends Model
 {
@@ -32,5 +33,10 @@ class Course extends Model
 
     public function modules() {
         return $this->hasMany('App\Modules');
+    }
+
+    public function usersEnrolled()
+    {
+        return $this->hasMany(User::class, 'course_enrolled', 'course_id', 'user_id');
     }
 }

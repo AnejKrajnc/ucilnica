@@ -50071,6 +50071,69 @@ function showContent(type, content, parent) {
   }
 }
 
+$(document).ready(function () {
+  /** SPA editing courses, their modules and users */
+  // Get form from server
+  $('.add-course').on('click', function () {
+    var action = $(this).data('action');
+    $('#exampleModal').modal('show');
+    $('.modal-body').html('<div class="d-flex justify-content-center">' + '  <div class="spinner-border" style="color:#5dce2d;" role="status">' + '    <span class="sr-only">Loading...</span>' + '  </div>' + '</div>');
+    $('.modal-title').html('Dodajanje novega spletnega tečaja');
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: '/api/dashboard/getform/' + action
+    }).done(function (msg) {
+      $('.modal-body').html(msg);
+    });
+  }); // Get form for updating existing course
+
+  $('.course-link').on('click', function () {
+    var courseID = $(this).data('courseid');
+    $('#exampleModal').modal('show');
+    $('.modal-body').html('<div class="d-flex justify-content-center">' + '  <div class="spinner-border" style="color:#5dce2d;" role="status">' + '    <span class="sr-only">Loading...</span>' + '  </div>' + '</div>');
+    $('.modal-title').html('Urejanje spletnega tečaja');
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: '/api/dashboard/courses/' + courseID
+    }).done(function (msg) {
+      $('.modal-body').html(msg);
+    });
+  }); // Get form for updating existing user
+
+  $('.user-link').on('click', function () {
+    var userID = $(this).data('userid');
+    $('#exampleModal').modal('show');
+    $('.modal-body').html('<div class="d-flex justify-content-center">' + '  <div class="spinner-border" style="color:#5dce2d;" role="status">' + '    <span class="sr-only">Loading...</span>' + '  </div>' + '</div>');
+    $('.modal-title').html('Urejanje uporabnika');
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: '/api/dashboard/users/' + userID
+    }).done(function (msg) {
+      $('.modal-body').html(msg);
+    });
+  }); // Get form for adding new user
+
+  $('.add-newuser').on('click', function () {
+    $('#exampleModal').modal('show');
+    $('.modal-body').html('<div class="d-flex justify-content-center">' + '  <div class="spinner-border" style="color:#5dce2d;" role="status">' + '    <span class="sr-only">Loading...</span>' + '  </div>' + '</div>');
+    $('.modal-title').html('Dodajanje novega uporabnika');
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: '/api/dashboard/users'
+    }).done(function (msg) {
+      $('.modal-body').html(msg);
+    });
+  });
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

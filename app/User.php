@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Course;
 
 class User extends \TCG\Voyager\Models\User
 {
@@ -39,6 +40,6 @@ class User extends \TCG\Voyager\Models\User
 
     /* Get all courses in which is student (user) enrolled */
     public function courses() {
-        return $this->belongsToMany('App\Course', 'course_enrolled');
+        return $this->belongsToMany(Course::class, 'course_enrolled', 'user_id', 'course_id');
     }
 }

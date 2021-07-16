@@ -28,17 +28,14 @@
                     <tbody>
                         @foreach (DB::table('course')->get() as $course)
                         <tr>
-                        <th scope="row">{{ $course->id }}</th>
-                        <td><a href="/dashboard/courses/{{ $course->id }}">{{ $course->title }}</a></td>
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        <td><a class="course-link" data-courseid="{{ $course->id }}" style="cursor: pointer;">{{ $course->title }}</a></td>
                         <td class="text-center">{{ DB::table('course_enrolled')->where('course_id', $course->id)->count() ?? '0' }}</td>
                         </tr>
                         @endforeach
                     </tbody>  
                     </table>
-                    <form action="dashboard/courses" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-primary">Dodaj nov tečaj</button>
-                    </form>
+                        <button type="submit" class="btn btn-primary add-course">Dodaj nov tečaj</button>
                     <br>
                     <h4>Nakupi spletnih tečajev</h4>
                     <p>Poglej vse nakupe spletnih tečajev - <a href="/dashboard/orders"><b>Nakupi</b></a></p>
@@ -49,4 +46,23 @@
                 </div>
             </div>
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Dodajanje novega tečaja</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Nalagam...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Zapri</button>
+              <button type="button" class="btn btn-primary">Shrani spremembe</button>
+            </div>
+          </div>
+        </div>
+      </div>
 @endsection
