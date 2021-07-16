@@ -43,7 +43,7 @@
                 <div class="panel panel-danger" style="border:1.1px solid rgb(93, 206, 45);border-radius:5px;height:100%;">
                     <div class="panel-body">
                         <ul style="padding-left: 5px;">
-                            @foreach(DB::table('modulecontent')->where('module_id', $module->id)->get() as $modulecontent)
+                            @foreach(DB::table('modulecontent')->where('module_id', $module->id)->orderByRaw('type DESC')->get() as $modulecontent)
                         <a class="course-module-item" data-content-type="{{ $modulecontent->type }}" data-content-id="{{ $modulecontent->id }}" style="text-transform: uppercase;"><i class="fa {{ $ikone[$modulecontent->type] ?? '' }}" style="color:rgb(93, 206, 45); font-size:24px; padding-right:5px;"></i> {{ $modulecontent->title }}</a> <br>
                             @endforeach
                         </ul>
