@@ -24,6 +24,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('api')->post('/prikazi-vsebino', 'Courses\CourseModuleContentsController@returnContent');
+
 Route::middleware('api')->get('/dashboard/getform/{action}', function ($action) {
     return view('admin.modal.addCourse');
 });

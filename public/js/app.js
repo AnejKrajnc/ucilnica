@@ -50132,6 +50132,32 @@ $(document).ready(function () {
       $('.modal-body').html(msg);
     });
   });
+}); // Opening content by URL querystring
+
+$(document).ready(function () {
+  if (window.location.search !== undefined) {
+    var query = new URLSearchParams(window.location.search);
+
+    if (query.has('video')) {
+      var data = {
+        "contenttype": "video",
+        "contentid": query.get('video')
+      };
+      var ajax = new XMLHttpRequest();
+      ajax.open('POST', '/api/prikazi-vsebino');
+      ajax.setRequestHeader('Content-Type', 'application/json');
+
+      ajax.onreadystatechange = function () {
+        if (this.status == 200) {
+          showContent('video', this.responseText, document.querySelector('.course-module-item').parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement); //console.log('Video with id: ' + this.responseText);
+        }
+      };
+
+      ajax.send(JSON.stringify(data)); //this.style.color = "rgb(244, 18, 86)";
+    } else if (query.has('meditacija')) {
+      console.log('meditacija');
+    }
+  }
 });
 
 /***/ }),
