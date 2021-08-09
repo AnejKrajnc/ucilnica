@@ -29,10 +29,10 @@
       </h5>
     </div>
 
-    @if($loop->index == 0)
+    @if($loop->index == 0 && !request()->has('m'))
 <div id="collapse{{ $loop->index }}" class="collapse show" aria-labelledby="heading{{ $loop->index }}" data-parent="#accordionExample">
     @else 
-    <div id="collapse{{ $loop->index }}" class="collapse" aria-labelledby="heading{{ $loop->index }}" data-parent="#accordionExample">  
+    <div id="collapse{{ $loop->index }}" class="collapse {{ request->has('m') ? ((request()->get('m') == $module->module_link ) ? 'show' : '' ) : '' }}" aria-labelledby="heading{{ $loop->index }}" data-parent="#accordionExample">  
     @endif 
       <div class="card-body">
         <div class="row">
