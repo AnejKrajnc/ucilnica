@@ -18,7 +18,7 @@
     <div class="row">
     <div class="col-11">
     <div class="accordion" id="accordionExample">
-      
+
   <div class="card">
       @foreach($modules as $module)
     <div class="card-header" id="heading{{ $loop->index }}">
@@ -31,9 +31,9 @@
 
     @if($loop->index == 0 && !request()->has('m'))
 <div id="collapse{{ $loop->index }}" class="collapse show" aria-labelledby="heading{{ $loop->index }}" data-parent="#accordionExample">
-    @else 
-    <div id="collapse{{ $loop->index }}" class="collapse {{ request->has('m') ? ((request()->get('m') == $module->module_link ) ? 'show' : '' ) : '' }}" aria-labelledby="heading{{ $loop->index }}" data-parent="#accordionExample">  
-    @endif 
+    @else
+    <div id="collapse{{ $loop->index }}" class="collapse {{ request()->has('m') ? ((request()->get('m') == $module->module_link ) ? 'show' : '' ) : '' }}" aria-labelledby="heading{{ $loop->index }}" data-parent="#accordionExample">
+    @endif
       <div class="card-body">
         <div class="row">
             <div class="col-sm-3 col-md-5">
@@ -53,7 +53,11 @@
         </div>
         <br>
         <div class="row">
-            <video-content></video-content>
+            @if(isset($type) && isset($contentid))
+            <video-content video=""></video-content>
+            @else
+            <video-content video="NULL"></video-content>
+            @endif
             <audio-content></audio-content>
             <ebook-content></ebook-content>
         </div>
@@ -65,4 +69,3 @@
     </div>
 </div>
 @endsection
-

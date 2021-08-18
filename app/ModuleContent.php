@@ -28,7 +28,7 @@ class ModuleContent extends Model
      * Columns of table.
      * 
      */
-    protected $fillable = ['title', 'type', 'content'];
+    protected $fillable = ['title', 'type', 'content', 'content_link'];
     /* Foreign key */
     public function Modules() {
         return $this->hasOne('App\Modules');
