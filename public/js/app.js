@@ -37643,20 +37643,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "show-module-content", staticStyle: { display: "none" } },
+    [
+      _c("div", {
+        staticClass: "player",
+        attrs: { "data-player-id": "", "data-video": _vm.video }
+      })
+    ]
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "show-module-content", staticStyle: { display: "none" } },
-      [_c("div", { staticClass: "player", attrs: { "data-player-id": "" } })]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -49919,7 +49917,9 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  */
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('video-content', _components_VideoComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('video-content', {
+  props: ['video']
+}, _components_VideoComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('audio-content', _components_AudioComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
 
@@ -49950,7 +49950,6 @@ function onYouTubeIframeAPIReady() {
     });
     video[i] = player;
   });
-  parseContentAtStart();
 }
 
 var vsebina = document.querySelectorAll('.course-module-item');
@@ -50135,17 +50134,31 @@ $(document).ready(function () {
   });
 }); // Opening content by URL querystring
 
-function parseContentAtStart() {
-  var tip = document.querySelector('#tipVsebineZaPrikaz');
-  var vsebina = document.querySelector('#vsebinaZaPrikaz');
+$(document).ready(function () {
+  if (window.location.search !== undefined) {
+    var query = new URLSearchParams(window.location.search);
 
-  if (tip !== null && vsebina !== null) {
-    console.log("Smo tukaj!");
-    var parent = vsebina.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement; //console.log(document.querySelector('#tipVsebineZaPrikaz').value + " " + document.querySelector('#vsebinaZaPrikaz').value);
+    if (query.has('video')) {
+      var data = {
+        "contenttype": "video",
+        "contentid": query.get('video')
+      };
+      var ajax = new XMLHttpRequest();
+      ajax.open('POST', '/api/prikazi-vsebino');
+      ajax.setRequestHeader('Content-Type', 'application/json');
 
-    showContent(tip.value, vsebina.value, parent);
+      ajax.onreadystatechange = function () {
+        if (this.status == 200) {
+          showContent('video', this.responseText, document.querySelector('.course-module-item').parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement); //console.log('Video with id: ' + this.responseText);
+        }
+      };
+
+      ajax.send(JSON.stringify(data)); //this.style.color = "rgb(244, 18, 86)";
+    } else if (query.has('meditacija')) {
+      console.log('meditacija');
+    }
   }
-}
+});
 
 /***/ }),
 

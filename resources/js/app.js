@@ -19,7 +19,7 @@ window.Vue = require('vue');
  */
 
 import Video from './components/VideoComponent.vue';
-Vue.component('video-content', Video);
+Vue.component('video-content', {props: ['video']}, Video);
 
 import Audio from './components/AudioComponent.vue';
 Vue.component('audio-content', Audio);
@@ -55,7 +55,6 @@ var video = new Array(document.querySelectorAll('.player').length);
         });
         video[i] = player;
     });
-        parseContentAtStart();
       }
 
 var vsebina = document.querySelectorAll('.course-module-item');
@@ -211,14 +210,25 @@ $('.add-newuser').on('click', function () {
 
 // Opening content by URL querystring
 
-function parseContentAtStart() {
-    var tip = document.querySelector('#tipVsebineZaPrikaz');
-    var vsebina = document.querySelector('#vsebinaZaPrikaz');
-
-    if (tip !== null && vsebina !== null) {
-        console.log("Smo tukaj!");
-        var parent = vsebina.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
-        //console.log(document.querySelector('#tipVsebineZaPrikaz').value + " " + document.querySelector('#vsebinaZaPrikaz').value);
-        showContent(tip.value, vsebina.value, parent);
+$(document).ready(() => {
+if (window.location.search !== undefined) {
+    var query = new URLSearchParams(window.location.search);
+    if (query.has('video')) {
+        var data = {"contenttype": "video", "contentid": query.get('video')};
+        var ajax = new XMLHttpRequest();
+        ajax.open('POST', '/api/prikazi-vsebino');
+        ajax.setRequestHeader('Content-Type', 'application/json');
+        ajax.onreadystatechange = function () {
+            if (this.status == 200) {
+                showContent('video', this.responseText, document.querySelector('.course-module-item').parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement);
+                //console.log('Video with id: ' + this.responseText);
+            }
+        }
+        ajax.send(JSON.stringify(data));
+        //this.style.color = "rgb(244, 18, 86)";
+    }
+    else if(query.has('meditacija')) {
+        console.log('meditacija');
     }
 }
+});

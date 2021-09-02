@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ ('Točka zdravja - Spletna učilnica') }}</title>
+    <title>{{ ('Nika Soršak - Spletna učilnica') }}</title>
 
     <!-- Scripts -->
     <script src="{{ secure_asset('js/app.js') }}" defer></script>
