@@ -32,7 +32,7 @@
     @if($loop->index == 0 && !request()->has('m'))
 <div id="collapse{{ $loop->index }}" class="collapse show" aria-labelledby="heading{{ $loop->index }}" data-parent="#accordionExample">
     @else 
-    <div id="collapse{{ $loop->index }}" class="collapse {{ request()->has('m') ? ((request()->get('m') == $module->module_link ) ? 'show' : '' ) : '' }}" aria-labelledby="heading{{ $loop->index }}" data-parent="#accordionExample">  
+    <div id="collapse{{ $loop->index }}" class="collapse {{ request->has('m') ? ((request()->get('m') == $module->module_link ) ? 'show' : '' ) : '' }}" aria-labelledby="heading{{ $loop->index }}" data-parent="#accordionExample">  
     @endif 
       <div class="card-body">
         <div class="row">
@@ -45,12 +45,6 @@
                         <ul style="padding-left: 5px;">
                             @foreach(DB::table('modulecontent')->where('module_id', $module->id)->orderByRaw('type DESC')->get() as $modulecontent)
                         <a class="course-module-item" data-content-type="{{ $modulecontent->type }}" data-content-id="{{ $modulecontent->id }}" style="text-transform: uppercase;"><i class="fa {{ $ikone[$modulecontent->type] ?? '' }}" style="color:rgb(93, 206, 45); font-size:24px; padding-right:5px;"></i> {{ $modulecontent->title }}</a> <br>
-                        @if(request()->has('c') && request()->get('c') == $modulecontent->content_link)
-                        @php
-                        $contentid = $modulecontent->content_link;
-                        $type = $modulecontent->type;
-                        @endphp
-                        @endif
                             @endforeach
                         </ul>
                     </div>
@@ -59,11 +53,7 @@
         </div>
         <br>
         <div class="row">
-            @if(isset($type) && isset($contentid))
-            <video-content video=""></video-content>
-            @else
-            <video-content video="NULL"></video-content>
-            @endif
+            <video-content></video-content>
             <audio-content></audio-content>
             <ebook-content></ebook-content>
         </div>

@@ -19,7 +19,7 @@ window.Vue = require('vue');
  */
 
 import Video from './components/VideoComponent.vue';
-Vue.component('video-content', {props: ['video']}, Video);
+Vue.component('video-content', Video);
 
 import Audio from './components/AudioComponent.vue';
 Vue.component('audio-content', Audio);

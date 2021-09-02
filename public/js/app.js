@@ -37643,18 +37643,20 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "show-module-content", staticStyle: { display: "none" } },
-    [
-      _c("div", {
-        staticClass: "player",
-        attrs: { "data-player-id": "", "data-video": _vm.video }
-      })
-    ]
-  )
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "show-module-content", staticStyle: { display: "none" } },
+      [_c("div", { staticClass: "player", attrs: { "data-player-id": "" } })]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -49917,9 +49919,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  */
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('video-content', {
-  props: ['video']
-}, _components_VideoComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('video-content', _components_VideoComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('audio-content', _components_AudioComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
 
