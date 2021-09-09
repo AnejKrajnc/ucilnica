@@ -53,9 +53,7 @@
         </div>
         <br>
         <div class="row">
-            <video-content></video-content>
-            <audio-content></audio-content>
-            <ebook-content></ebook-content>
+            <div class="content-shower"></div>
         </div>
       </div>
     </div>

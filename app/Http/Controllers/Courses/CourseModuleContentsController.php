@@ -57,6 +57,22 @@ class CourseModuleContentsController extends Controller
     }
     public function returnContent(Request $request) {
         $content = json_decode($request->getContent(), true);
-        return ModuleContent::find($content['contentid'])->content;
+        if ($content['contenttype'] == 'video') {
+            return '<iframe width="560" height="315" 
+            src="https://www.youtube.com/embed/'. ModuleContent::find($content['contentid'])->content .'" 
+            title="YouTube video player" 
+            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>';
+        }
+        elseif ($content['contenttype'] == 'meditacija') {
+            return '<iframe width="380" height="350" scrolling="no" frameborder="no" allow="autoplay" 
+            src="https://w.soundcloud.com/player/?url='. ModuleContent::find($content['contentid'])->content .'&color=%235dce2d&auto_play=false&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=true"
+            ></iframe>';
+        }
+        elseif ($content['contenttype'] == 'eknjiga') {
+            return '<div class="show-module-content" style="display:none;">
+            <a class="btn btn-primary" href="/tecaji/'. ModuleContent::find($content['contentid'])->content .'" target="_blank">Prenesi e-knjižico!</a>
+            </div>';
+        }
     }
 }

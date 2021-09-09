@@ -61,13 +61,19 @@ var vsebina = document.querySelectorAll('.course-module-item');
 vsebina.forEach(element => {
     var parent = element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
     element.addEventListener('click', function () {
+        var active = this;
         var data = {"contenttype": this.dataset.contentType, "contentid": this.dataset.contentId};
         var ajax = new XMLHttpRequest();
         ajax.open('POST', '/api/prikazi-vsebino');
         ajax.setRequestHeader('Content-Type', 'application/json');
+        $('.course-module-item').css('color', '');
+        $(parent).find('.content-shower').html('<div class="spinner-border" style="color: #5dce2d;" role="status">'+
+        '  <span class="sr-only">Loading...</span>'+
+        '</div>');
         ajax.onreadystatechange = function () {
             if (this.status == 200) {
                 showContent(data.contenttype, this.responseText, parent);
+                $(active).css('color', '#5dce2d');
             }
         }
         ajax.send(JSON.stringify(data));
@@ -78,47 +84,7 @@ vsebina.forEach(element => {
 
 function showContent(type, content, parent)
 {
-    if (type == 'video') {
-        if(parent.querySelectorAll('.show-module-content')[1]) {parent.querySelectorAll('.show-module-content')[1].style.display = "none";}
-        parent.querySelectorAll('.show-module-content')[2].style.display = "none";
-        var index = parent.querySelector('.player').getAttribute("data-player-id");
-        video[index].loadVideoById(content);
-        console.log('Parsed video by YouTube!');
-        if(parent.querySelector('.course-module-item[data-content-type="eknjiga"]')) {parent.querySelector('.course-module-item[data-content-type="eknjiga"]').style.color = "";}
-        if(parent.querySelector('.course-module-item[data-content-type="meditacija"]')) {parent.querySelector('.course-module-item[data-content-type="meditacija"]').style.color = "";}
-        if(parent.querySelector('.course-module-item[data-content-type="video"]')) {parent.querySelector('.course-module-item[data-content-type="video"]').style.color = "rgb(244, 18, 86)";
-        if(parent.querySelectorAll('.show-module-content')[0]) {parent.querySelectorAll('.show-module-content')[0].style.display = "block"; }
-    }
-}
-    else if(type == 'meditacija') {
-        video.forEach((x) => {
-            x.stopVideo();
-        });
-        if(parent.querySelectorAll('.show-module-content')[0]) {parent.querySelectorAll('.show-module-content')[0].style.display = "none"; }
-        if(parent.querySelectorAll('.show-module-content')[2]) {parent.querySelectorAll('.show-module-content')[2].style.display = "none"; }
-        var iframeElement   = parent.querySelector('iframe#meditacija');
-        var iframeElementID = iframeElement.id;
-        var widget1         = SC.Widget(iframeElement);
-        var widget2         = SC.Widget(iframeElementID);
-        widget1.load(content);
-        console.log('Parsed audio by SoundCloud!');
-        if(parent.querySelector('.course-module-item[data-content-type="video"]')) {parent.querySelector('.course-module-item[data-content-type="video"]').style.color = ""; }
-        if(parent.querySelector('.course-module-item[data-content-type="eknjiga"]')) {parent.querySelector('.course-module-item[data-content-type="eknjiga"]').style.color = ""; }
-        if(parent.querySelector('.course-module-item[data-content-type="meditacija"]')) {parent.querySelector('.course-module-item[data-content-type="meditacija"]').style.color = "rgb(244, 18, 86)"; }
-        if(parent.querySelectorAll('.show-module-content')[1]) {parent.querySelectorAll('.show-module-content')[1].style.display = "block"; }
-    }
-    else if(type == 'eknjiga') {
-        video.forEach((x) => {
-            x.stopVideo();
-        }); 
-      if(parent.querySelectorAll('.show-module-content')[0]) {parent.querySelectorAll('.show-module-content')[0].style.display = "none"; }
-      if(parent.querySelectorAll('.show-module-content')[1]) {parent.querySelectorAll('.show-module-content')[1].style.display = "none"; }
-      if(parent.querySelectorAll('.show-module-content')[2]) {parent.querySelectorAll('.show-module-content')[2].querySelector('.btn').href = "/tecaji/" + content;}
-      if(parent.querySelector('.course-module-item[data-content-type="video"]')) {parent.querySelector('.course-module-item[data-content-type="video"]').style.color = ""; }
-      if(parent.querySelector('.course-module-item[data-content-type="meditacija"]')) {parent.querySelector('.course-module-item[data-content-type="meditacija"]').style.color = ""; }
-      if(parent.querySelector('.course-module-item[data-content-type="eknjiga"]')) {parent.querySelector('.course-module-item[data-content-type="eknjiga"]').style.color = "rgb(244, 18, 86)"; }
-      if(parent.querySelectorAll('.show-module-content')[2]) {parent.querySelectorAll('.show-module-content')[2].style.display = "block"; }
-    }
+    $(parent).find('.content-shower').html(content);
 }
 
 $(document).ready(() => {
@@ -138,7 +104,7 @@ $('.add-course').on('click', function () {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: '/api/dashboard/getform/'+action
+        url: '/api/dashboard/getform/' + action
         })
         .done(function (msg) {
             $('.modal-body').html(msg);
