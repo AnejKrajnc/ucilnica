@@ -49955,7 +49955,7 @@ function onYouTubeIframeAPIReady() {
 var vsebina = document.querySelectorAll('.course-module-item');
 vsebina.forEach(function (element) {
   var parent = element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
-  element.addEventListener('click', function () {
+  element.on('click', function () {
     var active = this;
     var data = {
       "contenttype": this.dataset.contentType,
@@ -49975,7 +49975,7 @@ vsebina.forEach(function (element) {
     };
 
     ajax.send(JSON.stringify(data));
-    console.log("Type: " + this.dataset.contentType + " Id: " + this.dataset.contentId); //this.style.color = "rgb(244, 18, 86)";
+    console.log("Type: " + this.dataset.contentType + " Id: " + this.dataset.contentId);
   });
 });
 

@@ -60,7 +60,7 @@ var video = new Array(document.querySelectorAll('.player').length);
 var vsebina = document.querySelectorAll('.course-module-item');
 vsebina.forEach(element => {
     var parent = element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
-    element.addEventListener('click', function () {
+    element.on('click', function () {
         var active = this;
         var data = {"contenttype": this.dataset.contentType, "contentid": this.dataset.contentId};
         var ajax = new XMLHttpRequest();
@@ -78,7 +78,6 @@ vsebina.forEach(element => {
         }
         ajax.send(JSON.stringify(data));
         console.log("Type: " + this.dataset.contentType + " Id: " + this.dataset.contentId);
-        //this.style.color = "rgb(244, 18, 86)";
     });
 });
 
