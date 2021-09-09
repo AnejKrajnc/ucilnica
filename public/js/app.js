@@ -49955,7 +49955,7 @@ function onYouTubeIframeAPIReady() {
 var vsebina = document.querySelectorAll('.course-module-item');
 vsebina.forEach(function (element) {
   var parent = element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
-  element.on('click', function () {
+  element.addEventListener('click', function () {
     var active = this;
     var data = {
       "contenttype": this.dataset.contentType,

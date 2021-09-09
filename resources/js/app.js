@@ -60,7 +60,7 @@ var video = new Array(document.querySelectorAll('.player').length);
 var vsebina = document.querySelectorAll('.course-module-item');
 vsebina.forEach(element => {
     var parent = element.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
-    element.on('click', function () {
+    element.addEventListener('click', function () {
         var active = this;
         var data = {"contenttype": this.dataset.contentType, "contentid": this.dataset.contentId};
         var ajax = new XMLHttpRequest();
