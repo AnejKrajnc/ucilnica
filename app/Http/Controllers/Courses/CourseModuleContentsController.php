@@ -70,7 +70,7 @@ class CourseModuleContentsController extends Controller
             ></iframe>';
         }
         elseif ($content['contenttype'] == 'eknjiga') {
-            return '<div class="show-module-content" style="display:none;">
+            return '<div class="show-module-content">
             <a class="btn btn-primary" href="/tecaji/'. ModuleContent::find($content['contentid'])->content .'" target="_blank">Prenesi e-knjižico!</a>
             </div>';
         }
