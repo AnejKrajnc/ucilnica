@@ -46,6 +46,13 @@ class HomeController extends Controller
         $ikone = ['video' => 'fa-video-camera', 'meditacija' => 'fa-headphones', 'eknjiga' => 'fa-book'];
         return view('tecaj', ['course' => $course, 'modules' => $modules, 'ikone' => $ikone]);
     }
+    public function tecajiOdpri(Request $request)
+    {
+        $course = Course::where('link', $request->tecaj)->first();
+        $modules = Modules::where('course_id', $course->id)->orderBy('order')->get();
+        $ikone = ['video' => 'fa-video-camera', 'meditacija' => 'fa-headphones', 'eknjiga' => 'fa-book'];
+        return view('tecaj', ['course' => $course, 'modules' => $modules, 'ikone' => $ikone, 'vsebina' => $request->vsebina]);
+    }
     public function celostniprogrami(Request $request)
     {
         $courses = Auth::user()->courses()->where('category_id', 2)->get();
@@ -65,7 +72,6 @@ class HomeController extends Controller
     }
     public function myprofile()
     {
-
         return view('myprofile');
     }
     public function changemyprofile(Request $request)

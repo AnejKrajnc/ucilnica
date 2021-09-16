@@ -27,7 +27,9 @@ Route::group(['middleware' => ['auth', 'student']], function () {
     Route::get('/spletni-tecaji/{tecaj}', 'HomeController@tecaji');
     Route::get('/celostni-program-samopomoci/{program}', 'HomeController@celostniprogram');
     Route::get('/sotini-akademija/{program}', 'HomeController@sotiniakademija');
-    Route::get('/tecaji/{tecaj}/{datoteka}', 'FileStorageController@prenesi');
+    Route::get('/prenos/tecaji/{tecaj}/{datoteka}', 'FileStorageController@prenesi');
+    //Route::get('/tecaji/prenos/{datoteka}', 'FileStorageController@prenesi');
+    Route::get('/tecaji/{tecaj}/{vsebina}', 'HomeController@tecajiOdpri');
 });
 
 Route::get('/spletni-tecaji', 'HomeController@indextecaji');
