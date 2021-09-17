@@ -46,9 +46,11 @@
                     <div class="panel-body">
                         <ul style="padding-left: 5px;">
                             @foreach(DB::table('modulecontent')->where('module_id', $module->id)->orderByRaw('type DESC')->get() as $modulecontent)
+                            @if(isset($vsebina))
                             @if(DB::table('modulecontent')->where('content_link', $vsebina)->first()->id == $modulecontent->id)
                         <a class="course-module-item" data-content-type="{{ $modulecontent->type }}" data-content-id="{{ $modulecontent->id }}" style="text-transform: uppercase; color:rgb(93, 206, 45);"><i class="fa {{ $ikone[$modulecontent->type] ?? '' }}" style="color:rgb(93, 206, 45); font-size:24px; padding-right:5px;"></i> {{ $modulecontent->title }}</a> <br>
-                            @else
+                        @endif    
+                        @else
                         <a class="course-module-item" data-content-type="{{ $modulecontent->type }}" data-content-id="{{ $modulecontent->id }}" style="text-transform: uppercase;"><i class="fa {{ $ikone[$modulecontent->type] ?? '' }}" style="color:rgb(93, 206, 45); font-size:24px; padding-right:5px;"></i> {{ $modulecontent->title }}</a> <br>
                             @endif
                         @endforeach
