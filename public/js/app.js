@@ -50071,6 +50071,14 @@ $(document).ready(function () {
     }
   }
 });
+$(document).ready(function () {
+  $("#searchbox").on("keyup", function () {
+    var value = $(this).val().toLowerCase();
+    $("#uporabniki tr").filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    });
+  });
+});
 
 /***/ }),
 

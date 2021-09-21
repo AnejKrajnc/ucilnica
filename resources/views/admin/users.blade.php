@@ -9,8 +9,14 @@
                 <span style="position:absolute; width:32px; height: 3px; background-color:#f41256;"></span>
             </div>
             <br>
+            <div class="row">
+              <div class="col-5">
+                <input type="text" placeholder="Najdi..." class="form-control" id="searchbox">
+              </div>
+              </div>
+              <br>
             <div class="panel-body">
-                <table class="table">
+                <table class="table" id="uporabniki">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
