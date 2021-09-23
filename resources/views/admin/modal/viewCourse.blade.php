@@ -14,7 +14,7 @@
                 <option value="green">Zelena</option>
                 @elseif($course->color == 'green')
                 <option value="red">Rdeča</option>
-                <option value="green">Zelena</option>
+                <option value="green" selected>Zelena</option>
                 @else
                 <option selected>Izberite barvo tečaja</option>
                 <option value="red">Rdeča</option>
@@ -39,11 +39,20 @@
         <div class="form-row">
             <div class="form-group col-5"> 
                 <label for="InputSlikica">Naslovna slikica tečaja:</label><br>
-            <img src="{{ asset('/images/'.$course->thumbnail) }}" style="margin-bottom: 6px;" width="125" height="125" alt="Trenutna naslovna slikica tečaja" title="Trenutna slikica tečaja">
+            <img id="predogledSlikice" src="{{ asset($course->thumbnail) }}" style="margin-bottom: 6px;" width="125" height="125" alt="Trenutna naslovna slikica tečaja" title="Trenutna slikica tečaja">
             <br>
                 <input type="file" class="form-control" id="InputSlikica" name="slikica">
             </div>
         </div>
+        <script>
+            var slika = document.getElementById('InputSlikica');
+        slika.onchange = evt => {
+            const [file] = slika.files;
+            if (file) {
+                document.querySelector('#predogledSlikice').src = URL.createObjectURL(file);
+            }
+            }
+        </script>
     <button class="btn btn-primary" type="submit">Shrani spremembe</button>
     <br>
     @if(session()->has('success'))

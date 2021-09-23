@@ -41,6 +41,9 @@ class ModulesController extends Controller
         $input = $request->all();
         $module->title = $input['imemodula'];
         $module->description = $input['opismodula'];
+        $module->order = $input['order'];
+        if ($request->file('slikica'))
+            $module->thumbnail = str_replace('public', 'storage', $request->file('slikica')->store('public/images'));
         $module->updated_at = NOW();
         $module->save();
         return redirect()->back()->with('success', 'Spremembe so bile shranjene!');

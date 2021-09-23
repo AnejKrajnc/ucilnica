@@ -49900,6 +49900,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_VideoComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/VideoComponent.vue */ "./resources/js/components/VideoComponent.vue");
 /* harmony import */ var _components_AudioComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/AudioComponent.vue */ "./resources/js/components/AudioComponent.vue");
 /* harmony import */ var _components_EBookComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/EBookComponent.vue */ "./resources/js/components/EBookComponent.vue");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -49971,6 +49983,16 @@ vsebina.forEach(function (element) {
       if (this.status == 200) {
         showContent(data.contenttype, this.responseText, parent);
         $(active).css('color', '#5dce2d');
+
+        if (parent.clientWidth < 481) {
+          if (data.contenttype == 'meditacija') {
+            parent.querySelector('iframe').width = parent.clientWidth - 15;
+            parent.querySelector('iframe').height = parent.clientWidth - 15;
+          } else if (data.contenttype == 'video') {
+            parent.querySelector('iframe').width = parent.clientWidth - 15;
+            parent.querySelector('iframe').height = "auto";
+          }
+        }
       }
     };
 
@@ -50043,34 +50065,49 @@ $(document).ready(function () {
     }).done(function (msg) {
       $('.modal-body').html(msg);
     });
+  }); // Get form for updating modulecontent
+
+  $('.modulecontent-link').on('click', function () {
+    var modulecontentID = $(this).data('modulecontentid');
+    $('#exampleModal').modal('show');
+    $('.modal-body').html('<div class="d-flex justify-content-center">' + '  <div class="spinner-border" style="color:#5dce2d;" role="status">' + '    <span class="sr-only">Loading...</span>' + '  </div>' + '</div>');
+    $('.modal-title').html('Urejanje spletnega tečaja');
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: '/api/dashboard/modulecontent/' + modulecontentID
+    }).done(function (msg) {
+      $('.modal-body').html(msg);
+    });
   });
 }); // Opening content by URL querystring
 
-$(document).ready(function () {
-  if (window.location.search !== undefined) {
+/* 
+$(document).ready(() => {
+if (window.location.search !== undefined) {
     var query = new URLSearchParams(window.location.search);
-
     if (query.has('video')) {
-      var data = {
-        "contenttype": "video",
-        "contentid": query.get('video')
-      };
-      var ajax = new XMLHttpRequest();
-      ajax.open('POST', '/api/prikazi-vsebino');
-      ajax.setRequestHeader('Content-Type', 'application/json');
-
-      ajax.onreadystatechange = function () {
-        if (this.status == 200) {
-          showContent('video', this.responseText, document.querySelector('.course-module-item').parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement); //console.log('Video with id: ' + this.responseText);
+        var data = {"contenttype": "video", "contentid": query.get('video')};
+        var ajax = new XMLHttpRequest();
+        ajax.open('POST', '/api/prikazi-vsebino');
+        ajax.setRequestHeader('Content-Type', 'application/json');
+        ajax.onreadystatechange = function () {
+            if (this.status == 200) {
+                showContent('video', this.responseText, document.querySelector('.course-module-item').parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement);
+                //console.log('Video with id: ' + this.responseText);
+            }
         }
-      };
-
-      ajax.send(JSON.stringify(data)); //this.style.color = "rgb(244, 18, 86)";
-    } else if (query.has('meditacija')) {
-      console.log('meditacija');
+        ajax.send(JSON.stringify(data));
+        //this.style.color = "rgb(244, 18, 86)";
     }
-  }
+    else if(query.has('meditacija')) {
+        console.log('meditacija');
+    }
+}
 });
+*/
+
 $(document).ready(function () {
   $("#searchbox").on("keyup", function () {
     var value = $(this).val().toLowerCase();
@@ -50078,6 +50115,16 @@ $(document).ready(function () {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
     });
   });
+  var slika = document.getElementById('InputSlikica');
+
+  slika.onchange = function (evt) {
+    var _slika$files = _slicedToArray(slika.files, 1),
+        file = _slika$files[0];
+
+    if (file) {
+      document.querySelector('#predogledSlikice').src = URL.createObjectURL(file);
+    }
+  };
 });
 
 /***/ }),

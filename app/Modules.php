@@ -28,7 +28,7 @@ class Modules extends Model
      * Columns of table.
      * 
      */
-    protected $fillable = ['order', 'title', 'description', ];
+    protected $fillable = ['order', 'title', 'description', 'thumbnail'];
     
     /* Foreign key */
     public function moduleContent() {

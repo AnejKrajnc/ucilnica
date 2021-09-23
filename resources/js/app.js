@@ -74,6 +74,16 @@ vsebina.forEach(element => {
             if (this.status == 200) {
                 showContent(data.contenttype, this.responseText, parent);
                 $(active).css('color', '#5dce2d');
+                if (parent.clientWidth < 481) {
+                    if (data.contenttype == 'meditacija') {
+                        parent.querySelector('iframe').width = parent.clientWidth - 15;
+                        parent.querySelector('iframe').height = parent.clientWidth - 15;
+                    }
+                    else if (data.contenttype == 'video') {
+                        parent.querySelector('iframe').width = parent.clientWidth - 15;
+                        parent.querySelector('iframe').height = "auto";
+                    }
+                }
             }
         }
         ajax.send(JSON.stringify(data));
@@ -171,10 +181,32 @@ $('.add-newuser').on('click', function () {
             $('.modal-body').html(msg);
     });
 });
+
+// Get form for updating modulecontent
+$('.modulecontent-link').on('click', function () {
+    var modulecontentID = $(this).data('modulecontentid');
+    $('#exampleModal').modal('show');
+    $('.modal-body').html('<div class="d-flex justify-content-center">'+
+    '  <div class="spinner-border" style="color:#5dce2d;" role="status">'+
+    '    <span class="sr-only">Loading...</span>'+
+    '  </div>'+
+    '</div>');
+    $('.modal-title').html('Urejanje spletnega tečaja');
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: '/api/dashboard/modulecontent/'+modulecontentID
+        })
+        .done(function (msg) {
+            $('.modal-body').html(msg);
+    });
+});
+
 });
 
 // Opening content by URL querystring
-
+/* 
 $(document).ready(() => {
 if (window.location.search !== undefined) {
     var query = new URLSearchParams(window.location.search);
@@ -197,6 +229,7 @@ if (window.location.search !== undefined) {
     }
 }
 });
+*/
 
 $(document).ready(function(){
     $("#searchbox").on("keyup", function() {
@@ -205,4 +238,11 @@ $(document).ready(function(){
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       });
     });
+    var slika = document.getElementById('InputSlikica');
+                slika.onchange = evt => {
+                    const [file] = slika.files;
+                    if (file) {
+                        document.querySelector('#predogledSlikice').src = URL.createObjectURL(file);
+                    }
+                    }
   });

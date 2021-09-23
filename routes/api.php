@@ -45,8 +45,33 @@ Route::middleware('api')->post('/dashboard/courses/{id}', function (Request $req
     $course->color = $data['barva'];
     $course->description = $data['opistecaja'];
     if ($request->file('slikica'))
-        $course->thumbnail = $request->file('slikica')->store('public/images');
+        $course->thumbnail = str_replace('public', 'storage', $request->file('slikica')->store('public/images'));
     $course->save();
+    return 'Spremembe uspešno shranjene!';
+});
+
+Route::middleware('api')->get('/dashboard/modulecontent/{id}', function ($id) {
+    $modulecontent = ModuleContent::where('id', $id)->first();
+    return view('admin.modal.viewModuleContent')->withModulecontent($modulecontent);
+});
+
+Route::middleware('api')->post('/dashboard/modulecontent/{id}', function (Request $request)
+{
+    $data = $request->all();
+
+    $modulecontent = ModuleContent::where('id', $request->id)->first();
+    $modulecontent->type = $data['tip'];
+    $modulecontent->title = $data['naslov'];
+    $modulecontent->content_link = $data['povezava'];
+    if ($data['tip'] == 'eknjiga') {
+        if($request->file('vsebina')->store('locked')) {
+        $modulecontent->content = $request->file('vsebina')->store('locked');
+        }
+    }
+    else {
+        $modulecontent->content = $data['vsebina'];
+    }
+    $modulecontent->save();
     return 'Spremembe uspešno shranjene!';
 });
 

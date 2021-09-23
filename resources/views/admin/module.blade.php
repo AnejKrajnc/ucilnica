@@ -15,7 +15,7 @@
             <br>
         </div>
         <div class="panel-body">
-            <form action="/dashboard/courses/{{ $course->id }}/modules/{{ $module->id }}" method="POST">
+            <form action="/dashboard/courses/{{ $course->id }}/modules/{{ $module->id }}" method="POST" enctype="multipart/form-data">
             @csrf 
             <div class="form-row">
                 <div class="form-group col-md-16">
@@ -24,9 +24,22 @@
                 </div>
             </div>
             <div class="form-row">
+                <div class="form-group col-md-16">
+                    <label for="InputOrder">Razvrstitev:</label>
+                <input type="number" class="form-control" id="InputOrder" value="{{ $module->order ?? '' }}" name="order">
+                </div>
+            </div>
+            <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="InputOpisModula">Kratek opis modula:</label>
                     <textarea class="form-control" id="InputOpisModula" name="opismodula">{{ $module->description ?? '' }}</textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="InputSlikica">Slikica modula:</label><br>
+                    <img id="predogledSlikice" src="{{ asset($module->thumbnail) }}" alt="Trenutna slika modula" width="250" height="250">
+                   <input type="file" name="slikica" id="InputSlikica" class="form-control">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Shrani spremembe</button>
@@ -57,8 +70,8 @@
                 <tbody>
                     @foreach($modulecontents as $content)
                     <tr>
-                        <th scope="row">1</th>
-                    <td><a href="/dashboard/courses/{{ $course->id }}/modules/{{ $module->id }}/contents/{{ $content->id }}">{{ $content->title }}</a></td>
+                        <th scope="row">{{ $loop->index+1 }}</th>
+                    <td><a class="modulecontent-link" data-modulecontentid="{{ $content->id }}" style="cursor: pointer;">{{ $content->title }}</a></td>
                     <td>{{ $content->type }}</td>
                     </tr>
                     @endforeach
@@ -75,4 +88,23 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Dodajanje novega tečaja</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Nalagam...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Zapri</button>
+          <button type="button" class="btn btn-primary">Shrani spremembe</button>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
