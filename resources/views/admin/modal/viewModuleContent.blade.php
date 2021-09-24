@@ -17,7 +17,7 @@
                 <option value="meditacija">Meditacija</option>
                 <option value="eknjiga" selected>E-knjižica</option>
                 @else
-                <option selected>Izberite tip vsebine</option>
+                <option selected disabled>Izberite tip vsebine</option>
                 <option value="video">Video</option>
                 <option value="meditacija">Meditacija</option>
                 <option value="eknjiga">E-knjižica</option>
