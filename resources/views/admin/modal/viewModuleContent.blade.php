@@ -31,7 +31,7 @@
         </div>
         <div class="form-group col-md-16">
             <label for="InputNalovVsebine">Povezava do vsebine v spletni učilnici:</label>
-            <input type="text" class="form-control" id="InputPovezava" name="povezava" value="{{ $modulecontent->content_link ?? '' }}">
+            <input type="text" class="form-control" id="InputPovezava" name="povezava" value="{{ $modulecontent->content ?? '' }}">
             <i>(Povezavo do te vsebine v spletni učilnici lahko po želji tudi spremenite s poljubnim vnosom)</i>
         </div>
     </div>
