@@ -60,12 +60,13 @@ Route::middleware('api')->post('/dashboard/modulecontent/{id}', function (Reques
     $data = $request->all();
 
     $modulecontent = ModuleContent::where('id', $request->id)->first();
+    $module = $modulecontent->module_id;
     $modulecontent->type = $data['tip'];
     $modulecontent->title = $data['naslov'];
     $modulecontent->content_link = $data['povezava'];
     if ($data['tip'] == 'eknjiga') {
-        if($request->file('vsebina')->store('locked')) {
-        $modulecontent->content = $request->file('vsebina')->store('locked');
+        if($request->file('vsebina')) {
+        $modulecontent->content = Course::find(Modules::find($module)->first()->course_id)->first()->link.'/'. basename($request->file('vsebina')->store('locked'), '.pdf');
         }
     }
     else {
