@@ -17,7 +17,16 @@
                     <h4>Tečaji</h4>
                 </div>
                 <div class="panel-body">
-                    <table class="table">
+                  <form class="form-inline mb-2">
+                    <label class="form-label mr-1" for="filterByBaseCategory">Filtriraj po: </label>
+                    <select class="form-control" name="filterByBaseCategory" id="filterByBaseCategory">
+                      <option value="0" selected>-</option>
+                      <option value="1">Spletni tečaji</option>
+                      <option value="2">Program samopomoči</option>
+                      <option value="3">Sotini akademija</option>
+                    </select>
+                  </form>
+                    <table id="courses-table" class="table">
                       <thead>
                     <tr>
                     <th scope="col">#</th>
@@ -60,7 +69,6 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Zapri</button>
-              <button type="button" class="btn btn-primary">Shrani spremembe</button>
             </div>
           </div>
         </div>

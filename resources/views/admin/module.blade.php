@@ -54,14 +54,14 @@
             <h4>Vsebina modula</h4>
             <span style="position: absolute; width: 32px; height: 3px; background-color: rgb(244, 18, 86);"></span>
             <br>
-            <form action="/dashboard/courses/{{ $course->id }}/modules/{{ $module->id }}/contents" method="POST">
+            <form id="add-modulecontent" action="javascript:void(0);" data-courseid="{{ $course->id }}" data-moduleid="{{ $module->id }}">
                 @csrf 
                 <div class="form-row">
                 <button type="submit" class="btn btn-primary">Dodaj novo vsebino</button>
                 </div>
             </form>
             <br>
-            <table class="table">
+            <table id="table-modulecontent" class="table">
                 <thead>
                     <th scope="col">#</th>
                     <th scope="col">Ime vsebine</th>
@@ -102,7 +102,6 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Zapri</button>
-          <button type="button" class="btn btn-primary">Shrani spremembe</button>
         </div>
       </div>
     </div>

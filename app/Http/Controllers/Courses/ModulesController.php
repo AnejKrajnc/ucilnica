@@ -43,7 +43,7 @@ class ModulesController extends Controller
         $module->description = $input['opismodula'];
         $module->order = $input['order'];
         if ($request->file('slikica'))
-            $module->thumbnail = str_replace('public', 'storage', $request->file('slikica')->store('public/images'));
+            $module->thumbnail = 'storage/'.$request->file('slikica')->store('images');
         $module->updated_at = NOW();
         $module->save();
         return redirect()->back()->with('success', 'Spremembe so bile shranjene!');

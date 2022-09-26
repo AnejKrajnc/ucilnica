@@ -63,7 +63,7 @@
     <br>
 </form>
 
-<form action="/dashboard/courses/{{ $modulecontent->id }}" method="POST">
+<form id="remove-modulecontent" action="javascript:void(0);" data-modulecontentid="{{ $modulecontent->id }}">
 <input type="hidden" name="_method" value="DELETE">
 @csrf
 <button type="submit" class="btn btn-primary">Izbriši vsebino modula</button>
@@ -86,13 +86,35 @@
         });
 });
 
+$('#remove-modulecontent').on('submit', function () {
+        var formData = new FormData(this);
+        $.ajax({
+            url: '/api/dashboard/modulecontent/'+$(this).data('modulecontentid'),
+            method: "DELETE",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+        .done((msg) => {
+            if (msg.success === true) {
+            alert('Vsebina modula uspešno izbrisana!');
+            $('#exampleModal').modal('hide');
+            location.reload();
+            }
+            else {
+                alert('Vsebine modula ni bilo mogoče izbrisati, ponovite znova kasneje');
+            }
+        });
+});
+
     $('#InputTip').on('change', function () {
         if ($(this).val() == 'video') {
             $("label[for='InputVsebina']").html('Povezava do videa na youtube:');
             $('#InputVsebina').attr('type', 'text');
         }
         else if ($(this).val() == 'meditacija') {
-            $("label[for='InputVsebina']").html('Povezava do videa na soundcloud:');
+            $("label[for='InputVsebina']").html('Povezava do meditacije na soundcloud:');
             $('#InputVsebina').attr('type', 'text');
         }
         else if ($(this).val() == 'eknjiga') {
@@ -100,4 +122,14 @@
             $('#InputVsebina').attr('type', 'file');
         }
     });
+
+    $('#InputVsebina').on('change', function () {
+        if ($('#InputVsebina').attr('type') == 'file') {
+            if(this.files[0].size > (15 * 1048576)){
+                alert("Datoteka je prevelika! Dovoljene so velikosti datotek do 15 MB za preprečevanje preobremenjenosti prometa na strežniku. Za pdf datoteke uporabite kompresiranje npr.: www.ilovepdf.com!");
+                this.value = "";
+    };
+        }
+    });
+
 </script>

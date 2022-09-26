@@ -6,7 +6,29 @@
             <input type="text" class="form-control" id="InputImeTecaja" name="imetecaja" value="{{ $course->title }}">
             <i>Povezava tečaja se avtomatsko generira glede na ime v zgornjem polju</i>
         </div>
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-5">
+            <label for="InputKategorija">Glavna kategorija tečaja:</label>
+        <select name="kategorija_id" id="InputKategorija" class="form-control">
+                @if($course->category_id == 1)
+                <option value="1" selected>Spletni tečaji</option>
+                <option value="2">Celostni program samopomoči</option>
+                <option value="3">Sotini akademija</option>
+                @elseif($course->category_id == 2)
+                <option value="1">Spletni tečaji</option>
+                <option value="2" selected>Celostni program samopomoči</option>
+                <option value="3">Sotini akademija</option>
+                @elseif($course->category_id == 3)
+                <option value="1">Spletni tečaji</option>
+                <option value="2">Celostni program samopomoči</option>
+                <option value="3" selected>Sotini akademija</option>
+                @else
+                <option value="NULL" selected>Izberite kategorijo tečaja</option>
+                <option value="1">Spletni tečaji</option>
+                <option value="2">Celostni program samopomoči</option>
+                <option value="3">Sotini akademija</option>
+                @endif
+            </select>
+            <br>
             <label for="InputBarva">Barva tečaja:</label>
         <select name="barva" id="InputBarva" class="form-control">
                 @if($course->color == 'red')
@@ -65,7 +87,7 @@
 <h5>Moduli tečaja</h5>
 <span style="position:absolute; width:32px; height: 3px; background-color:#f41256;"></span>
 <br>
-<form id="add-module">
+<form id="add-module" action="javascript:void(0);" data-courseid="{{ $course->id }}">
     @csrf
     <div class="form-row">
         <div class="form-group">
@@ -81,17 +103,18 @@
         </tr>
     </thead>
     <tbody>
+        @if($modules != NULL)
         @foreach ($modules as $module)
     <tr draggable="true" data-module="{{ $module->id }}">
         <th scope="row">{{ $module->order }}</th>
         <td><a href="/dashboard/courses/{{ $course->id }}/modules/{{ $module->id }}">{{ $module->title }}</a></td>
         </tr>
         @endforeach
+        @endif
     </tbody>
 </table>
 
-<form action="/dashboard/courses/{{ $course->id }}" method="POST">
-<input type="hidden" name="_method" value="DELETE">
+<form id="remove-course" action="javascript:void(0);" data-courseid="{{ $course->id }}">
 @csrf
 <button type="submit" class="btn btn-primary">Izbriši spletni tečaj</button>
 </form>
@@ -112,4 +135,41 @@
             location.reload();
         });
 });
+
+    $('#add-module').on('submit', function () {
+        var formData = new FormData(this);
+        $.ajax({
+            url: '/api/dashboard/courses/'+$(this).data('courseid')+'/modules',
+            method: "POST",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+        .done((data) => {
+            $('#table tbody').append('<tr draggable="true" data-module="'+data.id+'"><th scope="row">'+data.id+'</th><td><a href="/dashboard/courses/'+data.course_id+'/modules/'+data.id+'">'+data.title+'</a></td></tr>');
+        })
+    });
+
+    $('#remove-course').on('submit', function () {
+        var formData = new FormData(this);
+        $.ajax({
+            url: '/api/dashboard/courses/'+$(this).data('courseid'),
+            method: "DELETE",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false
+        })
+        .done((data) => {
+            if (data.success == true) {
+                alert('Tečaj uspešno zbrisan!');
+                $('#exampleModal').modal('hide');
+                location.reload();
+            }
+            else
+                alert('Prišlo je do napake pri brisanju tečaja! Poskusite ponovno kasneje');
+        })
+    });
+
 </script>

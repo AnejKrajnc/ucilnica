@@ -27,7 +27,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::middleware('api')->post('/prikazi-vsebino', 'Courses\CourseModuleContentsController@returnContent');
 
 Route::middleware('api')->get('/dashboard/getform/{action}', function ($action) {
-    return view('admin.modal.addCourse');
+    $course = Course::create([
+        'title' => 'Novo dodan spletni tečaj',
+        'category_id' => 1,
+        'description' => '...',
+        'link' => 'link-do-tecaja'
+    ]);
+    $modules = NULL;
+    return view('admin.modal.viewCourse')->withCourse($course)->withModules($modules);
 });
 
 Route::middleware('api')->get('/dashboard/courses/{id}', function ($id) {
@@ -43,11 +50,62 @@ Route::middleware('api')->post('/dashboard/courses/{id}', function (Request $req
     $course = Course::where('id', $request->id)->first();
     $course->title = $data['imetecaja'];
     $course->color = $data['barva'];
+    $course->category_id = $data['kategorija_id'];
     $course->description = $data['opistecaja'];
     if ($request->file('slikica'))
-        $course->thumbnail = str_replace('public', 'storage', $request->file('slikica')->store('public/images'));
+        $course->thumbnail = 'storage/'.$request->file('slikica')->store('images');
     $course->save();
     return 'Spremembe uspešno shranjene!';
+});
+
+Route::middleware('api')->post('/dashboard/courses/{id}/modules', function (Request $request)
+{
+    $module = Modules::create([
+        'order',
+         'title' => 'Nov dodan modul',
+          'description' => 'Opis',
+          'course_id' => $request->id
+    ]);
+
+    return response()->json($module);
+});
+
+Route::middleware('api')->delete('/dashboard/courses/{id}', function (Request $request)
+{
+    $course = Course::where('id', $request->id);
+
+    if ($course->delete() == 1) {
+        return response()->json(['success' => true]);
+    }
+    else {
+        return response()->json(['success' => false]);
+    }
+});
+
+Route::middleware('api')->post('/dashboard/courses/{courseid}/modules/{moduleid}/contents', function (Request $request)
+{
+    $modulecontent = ModuleContent::create([
+        'title' => 'Nova vsebina modula',
+        'type' => 'video',
+        'content' => 'povezava-do-videa',
+        'created_at' => NOW(),
+        'updated_at' => NOW()
+    ]);
+
+    $modulecontent->module_id = $request->moduleid;
+    $modulecontent->save();
+
+    return response()->json($modulecontent);
+});
+
+Route::middleware('api')->delete('/dashboard/modulecontent/{modulecontentid}', function (Request $request)
+{
+    $modulecontent = ModuleContent::where('id', $request->modulecontentid);
+    if($modulecontent->delete() == 1) {
+        return response()->json(['success' => true]);
+    }
+    else
+        return response()->json(['success' => false]);
 });
 
 Route::middleware('api')->get('/dashboard/modulecontent/{id}', function ($id) {
@@ -156,4 +214,12 @@ Route::middleware('api')->post('/dashboard/users', function (Request $request)
         ]);
     }
     return 'Nov uporabnik uspešno dodan!';
+});
+
+Route::middleware('api')->get('/dashboard/courses/filterbytype/{type}', function (Request $request) {
+    if($request->type == 0)
+    {$courses = Course::all();}
+    else {
+    $courses = Course::where('category_id', $request->type)->get(); }
+    return response()->json($courses);
 });

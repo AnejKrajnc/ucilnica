@@ -50009,7 +50009,7 @@ $(document).ready(function () {
   /** SPA editing courses, their modules and users */
   // Get form from server
   $('.add-course').on('click', function () {
-    var action = $(this).data('action');
+    var action = 'newCourse';
     $('#exampleModal').modal('show');
     $('.modal-body').html('<div class="d-flex justify-content-center">' + '  <div class="spinner-border" style="color:#5dce2d;" role="status">' + '    <span class="sr-only">Loading...</span>' + '  </div>' + '</div>');
     $('.modal-title').html('Dodajanje novega spletnega tečaja');
@@ -50125,6 +50125,63 @@ $(document).ready(function () {
       document.querySelector('#predogledSlikice').src = URL.createObjectURL(file);
     }
   };
+});
+$(document).ready(function () {
+  $("#filterByBaseCategory").on("change", function (e) {
+    $("#courses-table tbody").html("");
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: '/api/dashboard/courses/filterbytype/' + e.target.value
+    }).done(function (data) {
+      var i = 1;
+      data.forEach(function (row) {
+        $("#courses-table tbody").append("<tr><th scope='row'>" + i++ + "</th><td><a class='course-link' data-courseid='" + row.id + "' style='cursor: pointer;'>" + row.title + "</a></td><td class='text-center'> - </td></tr>");
+      });
+      $('.course-link').on('click', function () {
+        var courseID = $(this).data('courseid');
+        $('#exampleModal').modal('show');
+        $('.modal-body').html('<div class="d-flex justify-content-center">' + '  <div class="spinner-border" style="color:#5dce2d;" role="status">' + '    <span class="sr-only">Loading...</span>' + '  </div>' + '</div>');
+        $('.modal-title').html('Urejanje spletnega tečaja');
+        $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: '/api/dashboard/courses/' + courseID
+        }).done(function (msg) {
+          $('.modal-body').html(msg);
+        });
+      });
+    });
+  });
+  $('#add-modulecontent').on('submit', function () {
+    var formData = new FormData(this);
+    $.ajax({
+      url: '/api/dashboard/courses/' + $(this).data('courseid') + '/modules/' + $(this).data('moduleid') + '/contents',
+      method: "POST",
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false
+    }).done(function (data) {
+      $('#table-modulecontent tbody').append('<tr><th scope="row">-</th><td><a class="modulecontent-link" data-modulecontentid="' + data.id + '" style="cursor: pointer;">' + data.title + '</a></td><td>' + data.type + '</td></tr>');
+      $('.modulecontent-link:last').on('click', function () {
+        var modulecontentID = $(this).data('modulecontentid');
+        $('#exampleModal').modal('show');
+        $('.modal-body').html('<div class="d-flex justify-content-center">' + '  <div class="spinner-border" style="color:#5dce2d;" role="status">' + '    <span class="sr-only">Loading...</span>' + '  </div>' + '</div>');
+        $('.modal-title').html('Urejanje vsebine modula spletnega tečaja');
+        $.ajax({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: '/api/dashboard/modulecontent/' + modulecontentID
+        }).done(function (msg) {
+          $('.modal-body').html(msg);
+        });
+      });
+    });
+  });
 });
 
 /***/ }),
@@ -50399,8 +50456,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Apache24\htdocs\ucilnica\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Apache24\htdocs\ucilnica\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\ucilnica\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\ucilnica\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

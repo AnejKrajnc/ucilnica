@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth', 'student']], function () {
 
 Route::get('/spletni-tecaji', 'HomeController@indextecaji');
 Route::get('/celostni-program-samopomoci', 'HomeController@celostniprogrami');
+Route::get('/sotini-akademija', 'HomeController@sotiniakademija');
 
 /* Routes for Payments (Nakupi spletnih tečajev) */
 Route::get('/nakup', 'PaymentController@index');
