@@ -32,7 +32,7 @@
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td><a class="user-link" data-userid="{{ $user->id }}" title="Poglej profil" style="cursor: pointer;">{{ $user->name }}</a></td>
                         <td>{{ $user->email }}</td>
-                        <td>{{ $user->created_at }}</td>
+                        <td class="created_at">{{ $user->created_at }}</td>
                         <td>{{ $user->updated_at }}</td>
                         </tr>
                         @endforeach
@@ -41,7 +41,6 @@
                 <form action="javascript:void(0);">
                     @csrf
                     <button class="btn btn-primary add-newuser" type="submit">Dodaj uporabnika</button>
-                    <i>Uporabnika, ki je na novo nakupil tečaj lahko dodate tudi v zavihku <a href="/dashboard/orders"><b>Računi</b></a></i>
                 </form>
             </div>
         </div> 
@@ -61,7 +60,6 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Zapri</button>
-          <button type="button" class="btn btn-primary">Shrani spremembe</button>
         </div>
       </div>
     </div>

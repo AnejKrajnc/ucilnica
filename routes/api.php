@@ -145,11 +145,11 @@ Route::middleware('api')->get('/dashboard/users/{id}', function (Request $reques
     return view('admin.modal.editUser')->withUser($user)->withTecaji(Course::all());
 });
 
-Route::middleware('api')->post('/dashboard/users/change-info', function (Request $request)
+Route::middleware('api')->post('/dashboard/users/{id}/change-info', function (Request $request)
 {
     $data = $request->all();
 
-    $user = User::where('id', $data['user'])->first();
+    $user = User::where('id', $request->id)->first();
     $user->name = $data['name'];
     $user->email = $data['email'];
     $user->save();

@@ -20,7 +20,7 @@
           @foreach ($courses as $course)
         <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
-              <a href="/tecaji/{{ $course->link }}"><img class="bd-placeholder-img card-img-top" src="{{ asset($course->thumbnail ?? '') }}"></a>
+              <a href="/tecaji/{{ $course->link }}"><img class="bd-placeholder-img card-img-top" src="{{ secure_asset($course->thumbnail ?? '') }}"></a>
               <a href="/tecaji/{{ $course->link }}" style="text-decoration: none !important;">
                 <div class="card-body" style="background-color: rgb(93, 206, 45);">
               <h5 class="card-heading" style="color: #fff; text-transform: uppercase; font-size:1rem; font-weight: bold;">{{ $course->title }}</h5>

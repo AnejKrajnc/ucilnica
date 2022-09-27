@@ -77,7 +77,7 @@
     $('#update-user').on('submit', function () {
         var formData = new FormData(this);
         $.ajax({
-            url: '/api/dashboard/users/'+$(this).data('userid'),
+            url: '/api/dashboard/users/'+$(this).data('userid')+'/change-info',
             method: "POST",
             data: formData,
             cache: false,
