@@ -70,5 +70,4 @@
         </div>
     </div>
 </div>
-<a href="/nakup" title="Nakup spletnih tečajev..."><div class="nakupi-tecaj"><i class="kosarica"></i></div></a>
 @endsection
