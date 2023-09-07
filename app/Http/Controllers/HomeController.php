@@ -70,6 +70,11 @@ class HomeController extends Controller
         $courses = Auth::user()->courses()->where('category_id', 3)->get();
         return view('tecajipogled')->withCourses($courses);
     }
+    public function solasamopomoci(Request $request)
+    {
+        $courses = Auth::user()->courses()->where('category_id', 5)->get();
+        return view('tecajipogled')->withCourses($courses);
+    }
     public function myprofile()
     {
         return view('myprofile');
