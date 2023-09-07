@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth', 'student']], function () {
     Route::get('/spletni-tecaji/{tecaj}', 'HomeController@tecaji');
     Route::get('/celostni-program-samopomoci/{program}', 'HomeController@celostniprogram');
     Route::get('/sotini-akademija/{program}', 'HomeController@sotiniakademija');
+    Route::get('/intenzivna-sola-samopomoci/{program}', 'HomeController@solasamopomoci');
     Route::get('/prenos/tecaji/{tecaj}/{datoteka}', 'FileStorageController@prenesi');
     //Route::get('/tecaji/prenos/{datoteka}', 'FileStorageController@prenesi');
     Route::get('/tecaji/{tecaj}/{vsebina}', 'HomeController@tecajiOdpri');
@@ -35,6 +36,7 @@ Route::group(['middleware' => ['auth', 'student']], function () {
 Route::get('/spletni-tecaji', 'HomeController@indextecaji');
 Route::get('/celostni-program-samopomoci', 'HomeController@celostniprogrami');
 Route::get('/sotini-akademija', 'HomeController@sotiniakademija');
+Route::get('/intenzivna-sola-samopomoci', 'HomeController@solasamopomoci');
 
 /* Routes for Payments (Nakupi spletnih tečajev) */
 Route::get('/nakup', 'PaymentController@index');
