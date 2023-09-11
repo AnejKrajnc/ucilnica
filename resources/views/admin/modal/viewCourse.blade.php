@@ -13,19 +13,28 @@
                 <option value="1" selected>Spletni tečaji</option>
                 <option value="2">Celostni program samopomoči</option>
                 <option value="3">Sotini akademija</option>
+                <option value="5">Intenzivna šola samopomoči</option>
                 @elseif($course->category_id == 2)
                 <option value="1">Spletni tečaji</option>
                 <option value="2" selected>Celostni program samopomoči</option>
                 <option value="3">Sotini akademija</option>
+                <option value="5">Intenzivna šola samopomoči</option>
                 @elseif($course->category_id == 3)
                 <option value="1">Spletni tečaji</option>
                 <option value="2">Celostni program samopomoči</option>
                 <option value="3" selected>Sotini akademija</option>
+                <option value="5">Intenzivna šola samopomoči</option>
+                @elseif($course->category_id == 5)
+                <option value="1">Spletni tečaji</option>
+                <option value="2">Celostni program samopomoči</option>
+                <option value="3">Sotini akademija</option>
+                <option value="5" selected>Intenzivna šola samopomoči</option>
                 @else
                 <option value="NULL" selected>Izberite kategorijo tečaja</option>
                 <option value="1">Spletni tečaji</option>
                 <option value="2">Celostni program samopomoči</option>
                 <option value="3">Sotini akademija</option>
+                <option value="5">Intenzivna šola samopomoči</option>
                 @endif
             </select>
             <br>
