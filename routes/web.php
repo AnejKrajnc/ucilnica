@@ -21,6 +21,8 @@ Auth::routes(['register' => false]);
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/moj-profil', 'HomeController@myprofile')->name('moj-profil');
 Route::post('/moj-profil', 'HomeController@changemyprofile');
+Route::get('/prenos/tecaji/{tecaj}/{datoteka}', 'FileStorageController@prenesi');
+Route::get('/tecaji/prenos/{datoteka}', 'FileStorageController@prenesi');
 /* Routes for Tečaji */
 Route::group(['middleware' => ['auth', 'student']], function () {
     Route::get('/tecaji/{tecaj}', 'HomeController@tecaji');
@@ -28,8 +30,6 @@ Route::group(['middleware' => ['auth', 'student']], function () {
     Route::get('/celostni-program-samopomoci/{program}', 'HomeController@celostniprogram');
     Route::get('/sotini-akademija/{program}', 'HomeController@sotiniakademija');
     Route::get('/intenzivna-sola-samopomoci/{program}', 'HomeController@solasamopomoci');
-    Route::get('/prenos/tecaji/{tecaj}/{datoteka}', 'FileStorageController@prenesi');
-    //Route::get('/tecaji/prenos/{datoteka}', 'FileStorageController@prenesi');
     Route::get('/tecaji/{tecaj}/{vsebina}', 'HomeController@tecajiOdpri');
 });
 
