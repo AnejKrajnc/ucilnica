@@ -8,6 +8,7 @@ use App\Course;
 use App\CourseEnrolled;
 use App\Modules;
 use App\ModuleContent;
+use App\RestrictedModules;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,33 @@ Route::middleware('api')->post('/dashboard/courses/{id}/modules', function (Requ
     ]);
 
     return response()->json($module);
+});
+
+Route::middleware('api')->post('/dashboard/restrictedmodules', function (Request $request)
+ {
+
+    if (RestrictedModules::where('module_id', $request->module_id)->where('user_id', $request->user_id)) {
+        return response()->json(['success' => false]);
+    }
+
+    $restrictedmodule = RestrictedModule::create([
+        $request->module_id,
+        $request->user_id
+    ]);
+
+    return response()->json($restrictedmodule);
+});
+
+Route::middleware('api')->delete('/dashboard/restrictedmodules', function (Request $request) 
+{
+    $restrictedmodule = RestrictedModules::where('module_id', $request->module_id)->where('user_id', $request->user_id);
+
+    if ($restrictedmodule->delete() == 1) {
+        return response()->json(['success' => true]);
+    }
+    else {
+        return response()->json(['success' => false]);
+    }
 });
 
 Route::middleware('api')->delete('/dashboard/courses/{id}', function (Request $request)

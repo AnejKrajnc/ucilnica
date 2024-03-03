@@ -50,6 +50,49 @@
                     {{ session()->get('success') }}
                 </div>
             @endif
+            @if(session()->has('error'))
+                <div class="alert alert-danger">
+                    {{ session()->get('error') }}
+                </div>
+            @endif
+            <br>
+            <h4>Omejevanje dostopa uporabnikov do modula</h4>
+            <span style="position: absolute; width: 32px; height: 3px; background-color: rgb(244, 18, 86);"></span>
+            <br>
+            <div>
+                <label for="">Uporabniki brez dostopa do tega modula:</label>
+            <div>
+                @foreach($restrictedmodules as $restricted)
+                <form style="display: inline;" action="/dashboard/courses/{{ $course->id }}/modules/{{ $module->id }}/delete-restricted-access/{{ $restricted->user_id }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn p-0">
+                    <span class="badge badge-danger">{{ $restricted->name }} <i class="fa fa-times" aria-hidden="true"></i></span>
+                </button>
+                </form>
+                @endforeach
+            </div>
+            <table id="table-course-users-module-restriction">
+                <thead>
+                <th scope="col">#</th>
+                <th scope="col">Ime</th>
+                <th scope="col">Omejitev dostopa</th>
+                </thead>
+                <tbody>
+                @foreach($usersincourse as $user)
+                    <tr>
+                        <th scope="row">{{ $loop->index+1 }}</th>
+                        <td>{{ $user->name }}</td>
+                    <td>
+                        <form action="/dashboard/courses/{{ $course->id }}/modules/{{ $module->id }}/restrict-access/{{ $user->id }}" method="POST">
+                        @csrf    
+                        <button class="btn btn-primary" type="submit">Omeji dostop</button>
+                        </form>
+                    </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            </div>
             <br>
             <h4>Vsebina modula</h4>
             <span style="position: absolute; width: 32px; height: 3px; background-color: rgb(244, 18, 86);"></span>

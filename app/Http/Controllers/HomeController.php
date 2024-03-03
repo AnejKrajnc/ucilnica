@@ -41,15 +41,23 @@ class HomeController extends Controller
     }
     public function tecaji(Request $request)
     {
+        // Get data for course and seperated modules data
         $course = Course::where('link', $request->tecaj)->first();
-        $modules = Modules::where('course_id', $course->id)->orderBy('order')->get();
+        $modules = Modules::leftJoin('restricted_modules', function ($join) use($request) {
+            $join->on('restricted_modules.module_id', '=', 'modules.id')
+            ->where('restricted_modules.user_id', '=', $request->user()->id);
+        })->where('course_id', $course->id)->where('user_id', null)->orderBy('order')->get();
         $ikone = ['video' => 'fa-video-camera', 'meditacija' => 'fa-headphones', 'eknjiga' => 'fa-book'];
         return view('tecaj', ['course' => $course, 'modules' => $modules, 'ikone' => $ikone]);
     }
     public function tecajiOdpri(Request $request)
     {
+        // Get data for course and sperated modules data
         $course = Course::where('link', $request->tecaj)->first();
-        $modules = Modules::where('course_id', $course->id)->orderBy('order')->get();
+        $modules = Modules::leftJoin('restricted_modules', function ($join) use($request) {
+            $join->on('restricted_modules.module_id', '=', 'modules.id')
+            ->where('restricted_modules.user_id', '=', $request->user()->id);
+        })->where('course_id', $course->id)->where('user_id', null)->orderBy('order')->get();
         $ikone = ['video' => 'fa-video-camera', 'meditacija' => 'fa-headphones', 'eknjiga' => 'fa-book'];
         return view('tecaj', ['course' => $course, 'modules' => $modules, 'ikone' => $ikone, 'vsebina' => $request->vsebina]);
     }

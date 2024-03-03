@@ -34,6 +34,7 @@ class CoursesController extends Controller
         $course = Course::where('id', $courseID)->first();
         $input = $request->all();
         $course->title = $input['imetecaja'];
+        $course->link = $input['linktecaja'];
         $course->description = $input['opistecaja'];
         if($request->hasFile('slikica')) {
             if($request->file('slikica')->isValid()) {
@@ -51,7 +52,7 @@ class CoursesController extends Controller
                 $course->thumbnail = $validated['name'].$extension;
             }
         }
-        $course->link = implode('-', explode(' ', Str::lower($course->title)));
+        //$course->link = implode('-', explode(' ', Str::lower($course->title)));
         $course->save();
         return redirect()->back()->with('success', 'Spremembe so bile shranjene!');
     }

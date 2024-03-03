@@ -68,6 +68,8 @@ Route::group(['middleware' => ['auth','admin']], function () {
         Route::get('/courses/{id}/modules/{idmod}', 'Courses\ModulesController@showModule');
         Route::post('/courses/{id}/modules/{idmod}', 'Courses\ModulesController@updateModule');
         Route::delete('/courses/{id}/modules/{idmod}', 'Courses\ModulesController@deleteModule');
+        Route::post('/courses/{id}/modules/{idmod}/restrict-access/{userid}', 'Courses\ModulesController@restrictModule');
+        Route::post('/courses/{id}/modules/{idmod}/delete-restricted-access/{userid}', 'Courses\ModulesController@deleteRestrictedModule');
     });
     /**
      * Routes for Course Module Contents Management by CourseModuleContentsController
