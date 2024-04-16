@@ -6,7 +6,7 @@
             <input type="text" class="form-control" id="InputImeTecaja" name="imetecaja" value="{{ $course->title }}">
             <i>Povezava tečaja se avtomatsko generira glede na ime v zgornjem polju</i>
         </div>
-        <div class="form-group w-full">
+        <div class="form-group w-100">
                     <label for="InputLinkTecaja">Link tečaja:</label>
                     <input type="text" class="form-control" id="InputLinkTecaja" name="linktecaja" value="{{ $course->link }}">
         </div>
