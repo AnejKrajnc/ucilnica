@@ -55,6 +55,12 @@
         </div>
     </div>
         <div class="form-row">
+            <div class="form-group col-md-16">
+                    <label for="InputLinkTecaja">Link tečaja:</label>
+                    <input type="text" class="form-control" id="InputLinkTecaja" name="linktecaja" value="{{ $course->link }}">
+                </div>
+        </div>
+        <div class="form-row">
             <div class="form-group col-12">
                 <label for="InputOpisTecaja">Opis Tečaja:</label>
                 <div id="InputOpisTecaja" class="div-textarea" contenteditable="true">{!! $course->description !!}</div>

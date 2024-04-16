@@ -52,6 +52,7 @@ Route::middleware('api')->post('/dashboard/courses/{id}', function (Request $req
     $course->title = $data['imetecaja'];
     $course->color = $data['barva'];
     $course->category_id = $data['kategorija_id'];
+    $course->link = $data['linktecaja'];
     $course->description = $data['opistecaja'];
     if ($request->file('slikica'))
         $course->thumbnail = 'storage/'.$request->file('slikica')->store('images');
