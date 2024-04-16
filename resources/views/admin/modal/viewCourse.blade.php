@@ -6,10 +6,6 @@
             <input type="text" class="form-control" id="InputImeTecaja" name="imetecaja" value="{{ $course->title }}">
             <i>Povezava tečaja se avtomatsko generira glede na ime v zgornjem polju</i>
         </div>
-        <div class="form-group col-lg">
-                    <label for="InputLinkTecaja">Link tečaja:</label>
-                    <input type="text" class="form-control" id="InputLinkTecaja" name="linktecaja" value="{{ $course->link }}">
-                </div>
         <div class="form-group col-md-5">
             <label for="InputKategorija">Glavna kategorija tečaja:</label>
         <select name="kategorija_id" id="InputKategorija" class="form-control">
@@ -56,6 +52,12 @@
                 <option value="green">Zelena</option>
                 @endif
             </select>
+        </div>
+    </div>
+    <div class="form-row">
+    <div class="form-group col-12">
+                    <label for="InputLinkTecaja">Link tečaja:</label>
+                    <input type="text" class="form-control" id="InputLinkTecaja" name="linktecaja" value="{{ $course->link }}">
         </div>
     </div>
         <div class="form-row">
