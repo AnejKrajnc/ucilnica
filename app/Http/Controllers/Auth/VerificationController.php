@@ -15,7 +15,7 @@ class VerificationController extends Controller
         $user = User::where('registration_token', $request->registration_token)->first();
 
         if ($user != null)
-            return view('auth.verify');
+            return view('auth.verify')->withRegistrationToken($user->registration_token);
         else
             return view('auth.wrong-verify');
     }
