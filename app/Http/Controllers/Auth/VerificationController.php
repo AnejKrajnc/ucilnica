@@ -15,9 +15,9 @@ class VerificationController extends Controller
         $user = User::where('registration_token', $request->registration_token)->first();
 
         if ($user != null)
-            return view('auth\verify');
+            return view('auth.verify');
         else
-            return view('auth\wrong-verify');
+            return view('auth.wrong-verify');
     }
 
     public function potrdiNastaviGeslo(Request $request) {
@@ -30,9 +30,9 @@ class VerificationController extends Controller
             $user->password = Hash::make($data['password']);
             $user->registration_token = null; // setting registration to NULL alias as user is already registered
             $user->save();
-            return view('auth\verify-success');
+            return view('auth.verify-success');
         }
         else
-            return view('auth\wrong-verify');
+            return view('auth.wrong-verify');
     }
 }
