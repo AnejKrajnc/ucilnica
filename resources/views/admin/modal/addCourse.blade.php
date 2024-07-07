@@ -4,7 +4,6 @@
         <div class="form-group col-md-16">
             <label for="InputImeTecaja">Ime tečaja:</label>
             <input type="text" class="form-control" id="InputImeTecaja" name="imetecaja" value="{{ '' }}">
-            <i>Povezava tečaja se avtomatsko generira glede na ime v zgornjem polju</i>
         </div>
         <div class="form-group col-md-2">
             <label for="InputBarva">Barva tečaja:</label>

@@ -30,6 +30,6 @@ class NewUserNotification extends Mailable
      */
     public function build()
     {
-        return $this->subject('Pridruži se nam v spletni učilnici')->view('emails\created');
+        return $this->subject('Pridruži se nam v spletni učilnici')->view('emails.created');
     }
 }
