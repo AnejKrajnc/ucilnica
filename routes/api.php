@@ -3,12 +3,15 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 use App\User;
 use App\Course;
 use App\CourseEnrolled;
 use App\Modules;
 use App\ModuleContent;
 use App\RestrictedModules;
+use App\Mail\NewUserNotification;
 
 /*
 |--------------------------------------------------------------------------
@@ -224,15 +227,36 @@ Route::middleware('api')->post('/dashboard/users', function (Request $request)
 {
     $data = $request->all();
 
-    $newUser = User::create([
+    if (empty($data['password']) || $data['password'] == "") {
+        // Create new user and send welcome mail with link to activate account and set password
+        $registration_token = Str::random(40);
+
+        $newUser = User::create([
         'name' => $data['name'],
         'email' => $data['email'],
         'avatar' => 'users/default-png',
         'usertype' => 'student',
-        'password' => Hash::make($data['password']),
+        'registration_token' => $registration_token,
         'created_at' => NOW(),
         'updated_at' => NOW()
     ]);
+
+    $data['registration_token'] = $registration_token;
+
+    // Send welcome email to given email with registration link
+    Mail::to($data['email'])->send(new NewUserNotification($data));
+
+    } else {
+        $newUser = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'avatar' => 'users/default-png',
+            'usertype' => 'student',
+            'password' => Hash::make($data['password']),
+            'created_at' => NOW(),
+            'updated_at' => NOW()
+        ]);
+    }
 
     foreach ($data['tecaji'] as $tecaj) {
         CourseEnrolled::create([

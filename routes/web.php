@@ -18,6 +18,9 @@ Route::get('/', 'HomeController@index')->middleware('auth');
 
 Auth::routes(['register' => false]);
 
+Route::get('/potrdi-nastavi-geslo/{registration_token}', 'Auth\VerificationController@potrdiNastaviGesloStran');
+Route::post('/potrdi-nastavi-geslo/{registration_token}', 'Auth\VerificationController@potrdiNastaviGeslo');
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/moj-profil', 'HomeController@myprofile')->name('moj-profil');
 Route::post('/moj-profil', 'HomeController@changemyprofile');
